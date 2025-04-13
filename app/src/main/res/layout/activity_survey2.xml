@@ -58,7 +58,7 @@
             android:background="@drawable/btn_submit"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="50dp"
-            android:layout_marginLeft="80dp"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
             />
 
