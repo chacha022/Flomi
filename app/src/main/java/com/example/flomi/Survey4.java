@@ -34,5 +34,16 @@ public class Survey4 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ImageButton back = findViewById(R.id.survey4_backButton);
+
+        back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //화면 전환
+                Intent intent = new Intent(Survey4.this, Survey3.class);
+                startActivity(intent);
+            }
+        });
     }
 }

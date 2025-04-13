@@ -32,6 +32,17 @@
             android:gravity="bottom"
             android:background="#54CFB9EB"
             />
+
+        <ImageButton
+            android:id="@+id/survey1_btn_next1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_submit"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_centerHorizontal="true"
+            />
+
         <TextView
             android:id="@+id/survey1_Query"
             android:layout_width="wrap_content"
@@ -49,17 +60,6 @@
             android:layout_marginLeft="15dp"
             android:textSize="20dp"
             android:text="성별은 어떻게 되세요?" />
-
-        <ImageButton
-            android:id="@+id/survey1_btn_next1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_submit"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            />
 
         <ImageButton
             android:id="@+id/survey1_female"
@@ -106,11 +106,14 @@
             android:id="@+id/survey1_born"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="410dp"
             android:layout_marginLeft="30dp"
+            android:background="@drawable/text"
             android:ems="10"
             android:inputType="text"
-            android:text="예 : 2000" />
+            android:hint="예 : 2000"
+            android:paddingStart="16dp"
+            />
 
     </RelativeLayout>
 
