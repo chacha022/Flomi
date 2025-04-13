@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Survey1"
+    android:orientation="horizontal"
+    >
+
+    <RelativeLayout
+        android:id="@+id/some_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToOutline="true"
+        android:background="#FFFFFF"
+        >
+
+        <View
+            android:id="@+id/survey2_rectangle_4"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_alignParentTop="true"
+            android:background="#54CFB9EB" />
+
+        <View
+            android:id="@+id/survey2_rectangle_1"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom"
+            android:background="#54CFB9EB"
+            />
+        <TextView
+            android:id="@+id/survey2_Query"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_marginLeft="15dp"
+            android:text="피부 타입 . 퍼스널 컬러"
+            />
+
+
+        <TextView
+            android:id="@+id/survey2_query1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="190dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="20dp"
+            android:text="어떤 피부 타입인가요?" />
+
+        <ImageButton
+            android:id="@+id/survey2_btn_next1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_submit"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="80dp"
+            android:gravity="center"
+            />
+
+        <ImageButton
+            android:id="@+id/survey2_type1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_small"
+            android:layout_marginTop="230dp"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:id="@+id/survey2_type1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="245dp"
+            android:layout_marginLeft="70dp"
+            android:text="건성" />
+
+        <ImageButton
+            android:id="@+id/survey2_type2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_small"
+            android:layout_marginTop="230dp"
+            android:layout_marginLeft="150dp"
+            />
+        <TextView
+            android:id="@+id/survey2_type2_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="245dp"
+            android:layout_marginLeft="192dp"
+            android:text="중성" />
+
+        <ImageButton
+            android:id="@+id/survey2_type3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_small"
+            android:layout_marginTop="230dp"
+            android:layout_marginLeft="270dp"
+            />
+        <TextView
+            android:id="@+id/survey2_type3_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="245dp"
+            android:layout_marginLeft="312dp"
+            android:text="지성" />
+
+        <ImageButton
+            android:id="@+id/survey2_type4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_small"
+            android:layout_marginTop="290dp"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:id="@+id/survey2_type4_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="305dp"
+            android:layout_marginLeft="65dp"
+            android:text="복합성" />
+
+        <ImageButton
+            android:id="@+id/survey2_type5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_small"
+            android:layout_marginTop="290dp"
+            android:layout_marginLeft="150dp"
+            />
+        <TextView
+            android:id="@+id/survey2_type5_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="305dp"
+            android:layout_marginLeft="185dp"
+            android:text="수부지" />
+
+
+
+
+        <TextView
+            android:id="@+id/survey2_query2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="380dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="20dp"
+            android:text="퍼스널컬러를 알려주세요." />
+
+        <ImageButton
+            android:id="@+id/survey2_personal1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_small"
+            android:layout_marginTop="415dp"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:id="@+id/survey2_personal1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="430dp"
+            android:layout_marginLeft="65dp"
+            android:text="봄웜톤" />
+
+        <ImageButton
+            android:id="@+id/survey2_personal2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_small"
+            android:layout_marginTop="415dp"
+            android:layout_marginLeft="150dp"
+            />
+        <TextView
+            android:id="@+id/survey2_personal2_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="430dp"
+            android:layout_marginLeft="180dp"
+            android:text="여름쿨톤" />
+
+        <ImageButton
+            android:id="@+id/survey2_personal3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_small"
+            android:layout_marginTop="475dp"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:id="@+id/survey2_personal3_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="490dp"
+            android:layout_marginLeft="60dp"
+            android:text="가을웜톤" />
+
+        <ImageButton
+            android:id="@+id/survey2_personal4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_small"
+            android:layout_marginTop="475dp"
+            android:layout_marginLeft="150dp"
+            />
+        <TextView
+            android:id="@+id/survey2_personal4_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="490dp"
+            android:layout_marginLeft="180dp"
+            android:text="겨울쿨톤" />
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+</LinearLayout>
