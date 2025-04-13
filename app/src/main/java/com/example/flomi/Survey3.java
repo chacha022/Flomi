@@ -11,26 +11,26 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Survey2 extends AppCompatActivity {
+public class Survey3 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_survey2);
+        setContentView(R.layout.activity_survey3);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        ImageButton next = findViewById(R.id.survey2_btn_next1);
+        ImageButton next = findViewById(R.id.survey3_btn_next1);
 
         next.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 //화면 전환
-                Intent intent = new Intent(Survey2.this, Survey3.class);
+                Intent intent = new Intent(Survey3.this, Survey4.class);
                 startActivity(intent);
             }
         });
