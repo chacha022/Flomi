@@ -17,6 +17,14 @@
         android:background="#FFFFFF"
         >
 
+        <ImageButton
+            android:id="@+id/survey2_backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/baseline_arrow_back_24" />
+
         <View
             android:id="@+id/survey2_rectangle_4"
             android:layout_width="match_parent"
@@ -168,7 +176,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="430dp"
             android:layout_marginLeft="65dp"
-            android:text="봄웜톤" />
+            android:text="봄웜톤"
+            android:tooltipText="베이지, 주황처럼 밝고 산뜻한 색상이 잘 어울려요"
+            />
 
         <ImageButton
             android:id="@+id/survey2_personal2"
@@ -184,7 +194,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="430dp"
             android:layout_marginLeft="180dp"
-            android:text="여름쿨톤" />
+            android:text="여름쿨톤"
+            android:tooltipText="흰 빛을 띈 파스텔 계열의 색상이 잘 어울려요"
+            />
 
         <ImageButton
             android:id="@+id/survey2_personal3"
@@ -200,7 +212,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="490dp"
             android:layout_marginLeft="60dp"
-            android:text="가을웜톤" />
+            android:text="가을웜톤"
+            android:tooltipText="차분한 골드, 베이지 같은 자연의 색상이 잘 어울려요"
+            />
 
         <ImageButton
             android:id="@+id/survey2_personal4"
@@ -216,7 +230,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="490dp"
             android:layout_marginLeft="180dp"
-            android:text="겨울쿨톤" />
+            android:text="겨울쿨톤"
+            android:tooltipText="검정이나 푸른빛의 원색처럼 강렬한 색상이 잘 어울려요"
+            />
 
 
     </RelativeLayout>
