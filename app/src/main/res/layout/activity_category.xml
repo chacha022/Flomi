@@ -5,9 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Survey1"
     android:orientation="horizontal"
-    >
+    tools:context=".Survey1">
 
 
 
@@ -17,12 +16,53 @@
         android:layout_height="match_parent"
         android:clipToOutline="true">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="카테고리"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:padding="10dp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70dp"
+            >
+
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <ListView
+                android:id="@+id/list_view2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="0dp"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
             android:id="@+id/survey1_rectangle_1"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:gravity="bottom"
+            android:background="#ffffff"
             />
 
 
@@ -30,35 +70,33 @@
             android:id="@+id/category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/category"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="50dp"
-            />
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/category" />
 
         <ImageButton
             android:id="@+id/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/home"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:alpha="0.4"
-            />
+            android:background="@drawable/home" />
 
 
         <ImageButton
             android:id="@+id/diary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/diary"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginRight="50dp"
+            android:layout_marginBottom="10dp"
             android:alpha="0.4"
-            />
+            android:background="@drawable/diary" />
+
 
     </RelativeLayout>
 
