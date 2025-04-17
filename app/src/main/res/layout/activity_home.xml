@@ -20,7 +20,7 @@
         <View
             android:id="@+id/survey1_rectangle_1"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:gravity="bottom"
             />
@@ -58,6 +58,42 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="50dp"
             android:alpha="0.4"
+            />
+
+    <RelativeLayout
+        android:id="@+id/some_id2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToOutline="true"
+        android:layout_centerHorizontal="true">
+
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginHorizontal="50dp"
+            android:background="@drawable/border"
+            android:hint="검색"
+            android:padding="5dp"
+            android:inputType="text" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search"
+            android:layout_margin="15dp"
+            android:layout_alignParentEnd="true"
+            />
+    </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="100dp"
+            android:background="#eaeaeaea"
             />
 
     </RelativeLayout>
