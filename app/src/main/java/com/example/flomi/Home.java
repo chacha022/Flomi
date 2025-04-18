@@ -45,5 +45,16 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ImageButton go_diary = findViewById(R.id.go_diary);
+
+        go_diary.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //화면 전환
+                Intent intent = new Intent(Home.this, Diary.class);
+                startActivity(intent);
+            }
+        });
     }
 }
