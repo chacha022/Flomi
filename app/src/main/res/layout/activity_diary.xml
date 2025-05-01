@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Survey1"
+    tools:context=".Diary"
     android:orientation="horizontal"
     android:background="@drawable/gradient3"
     >
@@ -108,7 +108,8 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:gravity="bottom" />
+            android:gravity="bottom"
+            />
 
         <ImageButton
             android:id="@+id/category"

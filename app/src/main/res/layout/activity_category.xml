@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".Survey1">
+    tools:context=".Category">
 
 
 
@@ -43,6 +43,7 @@
                 app:layout_constraintWidth_percent="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:background="#dddddd"
                 />
 
             <ListView
@@ -62,7 +63,6 @@
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:gravity="bottom"
-            android:background="#ffffff"
             />
 
 

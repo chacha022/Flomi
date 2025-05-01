@@ -1,0 +1,16 @@
+<resources>
+    <string-array name="item_list">
+        <item>스킨케어</item>
+        <item>클렌징</item>
+        <item>마스크</item>
+        <item>선케어</item>
+        <item>베이스메이크업</item>
+        <item>아이메이크업</item>
+        <item>립메이크업</item>
+        <item>바디</item>
+        <item>헤어</item>
+        <item>네일</item>
+        <item>기타</item>
+        <item>남성</item>
+    </string-array>
+</resources>

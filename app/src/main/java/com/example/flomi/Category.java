@@ -66,6 +66,7 @@ public class Category extends AppCompatActivity {
             updateDetailList(selectedCategory);
         });
 
+
         // 홈 버튼
         ImageButton home = findViewById(R.id.home);
         home.setOnClickListener(view -> {
@@ -79,6 +80,13 @@ public class Category extends AppCompatActivity {
             Intent intent = new Intent(Category.this, Diary.class);
             startActivity(intent);
         });
+
+
+//        // 리스트뷰2 클릭 시 List화면으로 이동
+//        listView2.setOnItemClickListener((parent, view, position, id) -> {
+//            Intent intent = new Intent(Category.this, ItemList.class);
+//            startActivity(intent);
+//        });
     }
 
     // 상세 항목 리스트뷰 업데이트
@@ -89,4 +97,6 @@ public class Category extends AppCompatActivity {
             listView2.setAdapter(detailAdapter);
         }
     }
+
+
 }

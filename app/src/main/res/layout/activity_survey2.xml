@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Survey1"
+    tools:context=".Survey2"
     android:orientation="horizontal"
     >
 
@@ -16,6 +16,7 @@
         android:clipToOutline="true"
         android:background="#FFFFFF"
         >
+
 
         <ImageButton
             android:id="@+id/survey2_backButton"
@@ -59,6 +60,9 @@
             android:textSize="20dp"
             android:text="어떤 피부 타입인가요?" />
 
+
+
+
         <ImageButton
             android:id="@+id/survey2_btn_next1"
             android:layout_width="wrap_content"
@@ -69,86 +73,78 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             />
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/survey2_type1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_small"
-            android:layout_marginTop="230dp"
-            android:layout_marginLeft="30dp"
-            />
-        <TextView
-            android:id="@+id/survey2_type1_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="245dp"
-            android:layout_marginLeft="70dp"
-            android:text="건성" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/survey2_type2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_small"
-            android:layout_marginTop="230dp"
-            android:layout_marginLeft="150dp"
-            />
-        <TextView
-            android:id="@+id/survey2_type2_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="245dp"
-            android:layout_marginLeft="192dp"
-            android:text="중성" />
 
-        <ImageButton
-            android:id="@+id/survey2_type3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_small"
-            android:layout_marginTop="230dp"
-            android:layout_marginLeft="270dp"
-            />
-        <TextView
-            android:id="@+id/survey2_type3_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="245dp"
-            android:layout_marginLeft="312dp"
-            android:text="지성" />
+                <RadioButton
+                    android:id="@+id/survey2_type1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_small"
+                    android:layout_marginTop="230dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="건성"
+                    />
 
-        <ImageButton
-            android:id="@+id/survey2_type4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_small"
-            android:layout_marginTop="290dp"
-            android:layout_marginLeft="30dp"
-            />
-        <TextView
-            android:id="@+id/survey2_type4_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="305dp"
-            android:layout_marginLeft="65dp"
-            android:text="복합성" />
 
-        <ImageButton
-            android:id="@+id/survey2_type5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_small"
-            android:layout_marginTop="290dp"
-            android:layout_marginLeft="150dp"
-            />
-        <TextView
-            android:id="@+id/survey2_type5_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="305dp"
-            android:layout_marginLeft="185dp"
-            android:text="수부지" />
+                <RadioButton
+                    android:id="@+id/survey2_type2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginTop="230dp"
+                    android:background="@drawable/button_small"
+                    android:text="중성" />
+
+                <RadioButton
+                    android:id="@+id/survey2_type3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="250dp"
+                    android:layout_marginTop="230dp"
+                    android:background="@drawable/button_small"
+                    android:text="지성" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+
+                <RadioButton
+                    android:id="@+id/survey2_type4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_small"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="복합성"
+                    />
+
+                <RadioButton
+                    android:id="@+id/survey2_type5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_small"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="130dp"
+                    android:text="수부지"
+                    />
+            </RelativeLayout>
+
+
+        </RadioGroup>
 
 
 
@@ -162,78 +158,66 @@
             android:textSize="20dp"
             android:text="퍼스널컬러를 알려주세요." />
 
-        <ImageButton
-            android:id="@+id/survey2_personal1"
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_small"
-            android:layout_marginTop="415dp"
-            android:layout_marginLeft="30dp"
-            />
-        <TextView
-            android:id="@+id/survey2_personal1_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="430dp"
-            android:layout_marginLeft="65dp"
-            android:text="봄웜톤"
-            android:tooltipText="베이지, 주황처럼 밝고 산뜻한 색상이 잘 어울려요"
-            />
+            android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/survey2_personal2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_small"
-            android:layout_marginTop="415dp"
-            android:layout_marginLeft="150dp"
-            />
-        <TextView
-            android:id="@+id/survey2_personal2_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="430dp"
-            android:layout_marginLeft="180dp"
-            android:text="여름쿨톤"
-            android:tooltipText="흰 빛을 띈 파스텔 계열의 색상이 잘 어울려요"
-            />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/survey2_personal3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_small"
-            android:layout_marginTop="475dp"
-            android:layout_marginLeft="30dp"
-            />
-        <TextView
-            android:id="@+id/survey2_personal3_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="490dp"
-            android:layout_marginLeft="60dp"
-            android:text="가을웜톤"
-            android:tooltipText="차분한 골드, 베이지 같은 자연의 색상이 잘 어울려요"
-            />
+                <RadioButton
+                    android:id="@+id/survey2_personal1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_small"
+                    android:layout_marginTop="415dp"
+                    android:layout_marginLeft="127dp"
+                    android:text="봄웜톤"
+                    />
 
-        <ImageButton
-            android:id="@+id/survey2_personal4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_small"
-            android:layout_marginTop="475dp"
-            android:layout_marginLeft="150dp"
-            />
-        <TextView
-            android:id="@+id/survey2_personal4_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="490dp"
-            android:layout_marginLeft="180dp"
-            android:text="겨울쿨톤"
-            android:tooltipText="검정이나 푸른빛의 원색처럼 강렬한 색상이 잘 어울려요"
-            />
 
+                <RadioButton
+                    android:id="@+id/survey2_personal2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_small"
+                    android:layout_marginTop="415dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="여름쿨톤"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/survey2_personal3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_small"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="가을웜톤"
+                    />
+
+                <RadioButton
+                    android:id="@+id/survey2_personal4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_small"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="120dp"
+                    android:text="겨울쿨톤"
+                    />
+
+            </RelativeLayout>
+
+
+        </RadioGroup>
 
     </RelativeLayout>
 

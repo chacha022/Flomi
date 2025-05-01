@@ -61,37 +61,34 @@
             android:textSize="20dp"
             android:text="성별은 어떻게 되세요?" />
 
-        <ImageButton
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <RadioButton
             android:id="@+id/survey1_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button"
             android:layout_marginTop="220dp"
             android:layout_marginLeft="30dp"
+            android:text="여성"
             />
-        <TextView
-            android:id="@+id/survey1_female_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="245dp"
-            android:layout_marginLeft="90dp"
-            android:text="여성" />
 
-        <ImageButton
+
+        <RadioButton
             android:id="@+id/survey1_male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button"
             android:layout_marginTop="220dp"
-            android:layout_marginLeft="220dp"
+            android:layout_marginLeft="30dp"
+            android:text="남성"
             />
-        <TextView
-            android:id="@+id/survey1_male_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="245dp"
-            android:layout_marginLeft="280dp"
-            android:text="남성" />
+        </RadioGroup>
+
+
 
 
         <TextView
