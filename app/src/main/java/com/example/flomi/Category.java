@@ -25,7 +25,7 @@ public class Category extends AppCompatActivity {
 
     // 카테고리 리스트
     private List<String> categories = Arrays.asList(
-            "스킨케어", "클렌징", "마스크", "선케어","베이스메이크업","아이메이크업","립메이크업","바디","헤어","네일","기타","남성"
+            "스킨케어", "클렌징", "마스크", "선케어","메이크업", "기타"
     );
 
     // 카테고리에 따른 상세 항목 매핑

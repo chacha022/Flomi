@@ -13,7 +13,7 @@
     <RelativeLayout
         android:id="@+id/some_id2"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="match_parent"
         android:clipToOutline="true"
         android:layout_centerHorizontal="true">
 
@@ -29,16 +29,26 @@
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:spinnerMode="dropdown"
+            android:textSize="20dp"
+
             />
 
-        <TextView
-            android:id="@+id/textView4"
+        <ListView
+            android:id="@+id/list_view"
             android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="60dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_marginTop="100dp"
+            />
     </RelativeLayout>
 
 </LinearLayout>
