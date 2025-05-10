@@ -13,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -82,11 +83,23 @@ public class Category extends AppCompatActivity {
         });
 
 
-//        // 리스트뷰2 클릭 시 List화면으로 이동
-//        listView2.setOnItemClickListener((parent, view, position, id) -> {
-//            Intent intent = new Intent(Category.this, ItemList.class);
-//            startActivity(intent);
-//        });
+        // 리스트뷰2 클릭 시 List화면으로 이동
+        listView2.setOnItemClickListener((parent, view, position, id) -> {
+            String selectedCategory = (String) parent.getItemAtPosition(position);
+
+            // 카테고리명에 따라 파일 이름 결정
+            int rawId = 0;
+            switch (selectedCategory) {
+                case "스킨케어":
+                    rawId = R.raw.skincare;
+                    break;
+
+            }
+
+            Intent intent = new Intent(Category.this, ItemList.class);
+            intent.putExtra("rawId", rawId);
+            startActivity(intent);
+        });
     }
 
     // 상세 항목 리스트뷰 업데이트

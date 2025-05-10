@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Survey3"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/some_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToOutline="true"
-        android:background="#FFFFFF"
-        >
+        android:background="#FFFFFF">
 
         <ImageButton
             android:id="@+id/survey3_backButton"
@@ -38,16 +35,15 @@
             android:layout_height="180dp"
             android:layout_alignParentBottom="true"
             android:gravity="bottom"
-            android:background="#54CFB9EB"
-            />
+            android:background="#54CFB9EB" />
+
         <TextView
             android:id="@+id/survey3_Query"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
             android:layout_marginLeft="15dp"
-            android:text="피부 고민"
-            />
+            android:text="피부 고민" />
 
         <TextView
             android:id="@+id/survey3_query1"
@@ -66,131 +62,111 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="50dp"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
-            />
+            android:gravity="center" />
 
+        <!-- ✅ 여기에 ID 추가됨 -->
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <RadioButton
+                    android:id="@+id/survey3_problem1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:layout_marginTop="220dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="아토피"
+                    android:textSize="20dp" />
 
-        <RadioButton
-            android:id="@+id/survey3_problem1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:layout_marginTop="220dp"
-            android:layout_marginLeft="30dp"
-            android:text="아토피"
-            android:textSize="20dp"
-            />
+                <RadioButton
+                    android:id="@+id/survey3_problem2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:layout_marginTop="220dp"
+                    android:layout_marginLeft="220dp"
+                    android:text="여드름"
+                    android:textSize="20dp" />
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/survey3_problem2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:layout_marginTop="220dp"
-            android:layout_marginLeft="220dp"
-            android:text="여드름"
-            android:textSize="20dp"
-            />
-    </RelativeLayout>
+                <RadioButton
+                    android:id="@+id/survey3_problem3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="모공"
+                    android:textSize="20dp" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/survey3_problem4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="220dp"
+                    android:text="민감성"
+                    android:textSize="20dp" />
+            </RelativeLayout>
 
-        <RadioButton
-            android:id="@+id/survey3_problem3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:layout_marginTop="11dp"
-            android:layout_marginLeft="30dp"
-            android:text="모공"
-            android:textSize="20dp"
-            />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/survey3_problem4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:layout_marginTop="11dp"
-            android:layout_marginLeft="220dp"
-            android:text="민감성"
-            android:textSize="20dp"
-            />
-    </RelativeLayout>
+                <RadioButton
+                    android:id="@+id/survey3_problem5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="속건조"
+                    android:textSize="20dp" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/survey3_problem6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="220dp"
+                    android:text="미백/잡티"
+                    android:textSize="20dp" />
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/survey3_problem5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:layout_marginTop="11dp"
-            android:layout_marginLeft="30dp"
-            android:text="속건조"
-            android:textSize="20dp"
-            />
-
-        <RadioButton
-            android:id="@+id/survey3_problem6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:layout_marginTop="11dp"
-            android:layout_marginLeft="220dp"
-            android:text="미백/잡티"
-            android:textSize="20dp"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <RadioButton
-            android:id="@+id/survey3_problem7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:layout_marginTop="11dp"
-            android:layout_marginLeft="30dp"
-            android:text="해당 없음"
-            android:textSize="20dp"
-            />
-    </RelativeLayout>
+                <RadioButton
+                    android:id="@+id/survey3_problem7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="해당 없음"
+                    android:textSize="20dp" />
+            </RelativeLayout>
 
         </RadioGroup>
 
-
-
-
-
-
     </RelativeLayout>
-
-
-
-
-
 
 </LinearLayout>

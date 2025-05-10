@@ -66,26 +66,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/survey1_female"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:layout_marginTop="220dp"
-            android:layout_marginLeft="30dp"
-            android:text="여성"
-            />
+            <RadioButton
+                android:id="@+id/survey1_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:layout_marginTop="220dp"
+                android:layout_marginLeft="30dp"
+                android:text="여성"
+                />
 
 
-        <RadioButton
-            android:id="@+id/survey1_male"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:layout_marginTop="220dp"
-            android:layout_marginLeft="30dp"
-            android:text="남성"
-            />
+            <RadioButton
+                android:id="@+id/survey1_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:layout_marginTop="220dp"
+                android:layout_marginLeft="30dp"
+                android:text="남성"
+                />
         </RadioGroup>
 
 
@@ -100,14 +100,14 @@
             android:textSize="20dp"
             android:text="태어난 연도를 알려주세요." />
         <EditText
-            android:id="@+id/survey1_born"
+            android:id="@+id/numberEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="410dp"
             android:layout_marginLeft="30dp"
             android:background="@drawable/text"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="number"
             android:hint="예 : 2000"
             android:paddingStart="16dp"
             />
