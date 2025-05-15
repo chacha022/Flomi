@@ -20,42 +20,105 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="카테고리"
+            android:text="나의 제품 찾기"
             android:textSize="40dp"
             android:textStyle="bold"
             android:textAlignment="center"
             android:padding="10dp"
             />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/main_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="70dp"
-            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
+            android:text="현재 얼굴 상태를 등록해주세요."
+            android:textSize="20dp"
+            />
 
-            <ListView
-                android:id="@+id/list_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="#dddddd"
-                />
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="150dp"
+            android:layout_centerHorizontal="true"
+            android:src="@android:drawable/ic_menu_camera" />
 
-            <ListView
-                android:id="@+id/list_view2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.6"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="0dp"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/some_check"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToOutline="true"
+        android:layout_marginTop="500dp"
+        android:gravity="center_horizontal"
+        >
+
+        <CheckBox
+            android:id="@+id/check1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지성"
+            android:textSize="20dp"
+            />
+
+        <CheckBox
+            android:id="@+id/check2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:text="건성"
+            android:textSize="20dp"
+            />
+
+        <CheckBox
+            android:id="@+id/check3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:text="복합성"
+            android:textSize="20dp"
+            />
+
+        <CheckBox
+            android:id="@+id/check4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="여드름"
+            android:textSize="20dp"
+            />
+
+        <CheckBox
+            android:id="@+id/check5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="50dp"
+            android:text="좁쌀"
+            android:textSize="20dp"
+            />
+
+        <CheckBox
+            android:id="@+id/check6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="50dp"
+            android:text="블랙헤드"
+            android:textSize="20dp"
+            />
+
+
+
+        <Button
+            android:id="@+id/find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="찾기"
+            android:layout_marginTop="150dp"
+            android:layout_marginHorizontal="100dp"
+            />
+    </RelativeLayout>
+
 
         <View
             android:id="@+id/survey1_rectangle_1"
