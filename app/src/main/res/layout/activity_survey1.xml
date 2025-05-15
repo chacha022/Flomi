@@ -62,6 +62,7 @@
             android:text="성별은 어떻게 되세요?" />
 
         <RadioGroup
+            android:id="@+id/radioGroup_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -113,10 +114,6 @@
             />
 
     </RelativeLayout>
-
-
-
-
 
 
 </LinearLayout>

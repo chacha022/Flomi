@@ -3,101 +3,106 @@ package com.example.flomi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class Survey2 extends AppCompatActivity {
 
-    private RadioButton[] skinButtons;
-    private RadioButton[] colorButtons;
-    private RadioButton selectedSkin = null;
-    private RadioButton selectedColor = null;
+    private String selectedSkinType = "";
+    private String selectedColor = "";
+    private int lastSkinTypeId = -1;
+    private int lastColorId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_survey2);
 
-        // 시스템 바 여백 적용
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        RadioGroup skinTypeGroup = findViewById(R.id.radioGroup_skinType);
+        RadioGroup colorGroup = findViewById(R.id.radioGroup_color);
 
-        // 다음 버튼 클릭 시 Survey3로 이동
+        Intent received = getIntent();
+        selectedSkinType = received.getStringExtra("skinType") != null ? received.getStringExtra("skinType") : "";
+        selectedColor = received.getStringExtra("personalColor") != null ? received.getStringExtra("personalColor") : "";
+
+        // 라디오버튼 개별 처리
+        setupToggleRadioButtons(skinTypeGroup, true);
+        setupToggleRadioButtons(colorGroup, false);
+
         ImageButton next = findViewById(R.id.survey2_btn_next1);
         next.setOnClickListener(view -> {
             Intent intent = new Intent(Survey2.this, Survey3.class);
+            intent.putExtra("gender", received.getStringExtra("gender"));
+            intent.putExtra("birthYear", received.getIntExtra("birthYear", 0));
+            intent.putExtra("skinType", selectedSkinType);
+            intent.putExtra("personalColor", selectedColor);
             startActivity(intent);
         });
 
-        // 뒤로 버튼 클릭 시 Survey1로 이동
         ImageButton back = findViewById(R.id.survey2_backButton);
         back.setOnClickListener(view -> {
             Intent intent = new Intent(Survey2.this, Survey1.class);
+            intent.putExtra("gender", received.getStringExtra("gender"));
+            intent.putExtra("birthYear", received.getIntExtra("birthYear", 0));
             startActivity(intent);
         });
+    }
 
-        // ✅ 라디오 버튼 토글 처리 추가
+    private void setupToggleRadioButtons(RadioGroup group, boolean isSkinGroup) {
+        for (int i = 0; i < group.getChildCount(); i++) {
+            View child = group.getChildAt(i);
 
-        // 피부 타입 버튼 모음
-        skinButtons = new RadioButton[]{
-                findViewById(R.id.survey2_type1),
-                findViewById(R.id.survey2_type2),
-                findViewById(R.id.survey2_type3),
-                findViewById(R.id.survey2_type4),
-                findViewById(R.id.survey2_type5)
-        };
-
-        // 퍼스널컬러 버튼 모음
-        colorButtons = new RadioButton[]{
-                findViewById(R.id.survey2_personal1),
-                findViewById(R.id.survey2_personal2),
-                findViewById(R.id.survey2_personal3),
-                findViewById(R.id.survey2_personal4)
-        };
-
-        // 피부 타입 토글 처리
-        for (RadioButton btn : skinButtons) {
-            btn.setOnClickListener(v -> {
-                if (btn.equals(selectedSkin)) {
-                    btn.setChecked(false);
-                    selectedSkin = null;
-                } else {
-                    uncheckAll(skinButtons);
-                    btn.setChecked(true);
-                    selectedSkin = btn;
+            if (child instanceof ViewGroup) {
+                ViewGroup nested = (ViewGroup) child;
+                for (int j = 0; j < nested.getChildCount(); j++) {
+                    View btn = nested.getChildAt(j);
+                    if (btn instanceof RadioButton) {
+                        setupButtonLogic((RadioButton) btn, isSkinGroup);
+                    }
                 }
-            });
-        }
-
-        // 퍼스널컬러 토글 처리
-        for (RadioButton btn : colorButtons) {
-            btn.setOnClickListener(v -> {
-                if (btn.equals(selectedColor)) {
-                    btn.setChecked(false);
-                    selectedColor = null;
-                } else {
-                    uncheckAll(colorButtons);
-                    btn.setChecked(true);
-                    selectedColor = btn;
-                }
-            });
+            } else if (child instanceof RadioButton) {
+                setupButtonLogic((RadioButton) child, isSkinGroup);
+            }
         }
     }
 
-    // 모든 버튼 체크 해제
-    private void uncheckAll(RadioButton[] buttons) {
-        for (RadioButton btn : buttons) {
-            btn.setChecked(false);
+    private void setupButtonLogic(RadioButton button, boolean isSkinGroup) {
+        button.setOnClickListener(view -> {
+            int id = button.getId();
+            boolean isChecked = button.isChecked();
+
+            if (isSkinGroup) {
+                if (id == lastSkinTypeId) {
+                    button.setChecked(false);
+                    selectedSkinType = "";
+                    lastSkinTypeId = -1;
+                } else {
+                    selectedSkinType = button.getText().toString();
+                    lastSkinTypeId = id;
+                }
+            } else {
+                if (id == lastColorId) {
+                    button.setChecked(false);
+                    selectedColor = "";
+                    lastColorId = -1;
+                } else {
+                    selectedColor = button.getText().toString();
+                    lastColorId = id;
+                }
+            }
+        });
+
+        // 초기 복원
+        if (isSkinGroup && button.getText().toString().equals(selectedSkinType)) {
+            button.setChecked(true);
+            lastSkinTypeId = button.getId();
+        } else if (!isSkinGroup && button.getText().toString().equals(selectedColor)) {
+            button.setChecked(true);
+            lastColorId = button.getId();
         }
     }
 }
