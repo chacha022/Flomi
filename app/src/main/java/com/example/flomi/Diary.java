@@ -24,7 +24,7 @@ public class Diary extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        // 글쓰기 버튼
+        // 저장 버튼
         Button save = findViewById(R.id.save);
         save.setOnClickListener(view -> {
             Intent intent = new Intent(Diary.this, DiaryList.class);
