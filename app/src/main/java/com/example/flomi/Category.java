@@ -54,7 +54,7 @@ public class Category extends AppCompatActivity {
         // 다이어리 버튼
         ImageButton diary = findViewById(R.id.diary);
         diary.setOnClickListener(view -> {
-            Intent intent = new Intent(Category.this, Diary.class);
+            Intent intent = new Intent(Category.this, DiaryList.class);
             startActivity(intent);
         });
 

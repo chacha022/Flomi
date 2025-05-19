@@ -19,7 +19,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     // ===== 뷰홀더 클래스 =====================================================
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivProfile;
-        TextView tvCompany, tvName, tvEfficacy1, tvEfficacy2, tvEfficacy3;
+        TextView tvCompany, tvName, tvEfficacy1;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -27,8 +27,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             tvCompany = itemView.findViewById(R.id.tv_enter);
             tvName = itemView.findViewById(R.id.tv_name);
             tvEfficacy1 = itemView.findViewById(R.id.tv_efficacy1);
-            tvEfficacy2 = itemView.findViewById(R.id.tv_efficacy2);
-            tvEfficacy3 = itemView.findViewById(R.id.tv_efficacy3);
         }
     }
     // ========================================================================
@@ -54,8 +52,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         holder.tvCompany.setText(product.getCompany());
         holder.tvName.setText(product.getName());
         holder.tvEfficacy1.setText(product.getEfficacy1());
-        holder.tvEfficacy2.setText(product.getEfficacy2());
-        holder.tvEfficacy3.setText(product.getEfficacy3());
 
         // 클릭 리스너 추가
         holder.itemView.setOnClickListener(view -> {
@@ -67,9 +63,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             intent.putExtra("company", clickedProduct.getCompany());
             intent.putExtra("name", clickedProduct.getName());
             intent.putExtra("efficacy1", clickedProduct.getEfficacy1());
-            intent.putExtra("efficacy2", clickedProduct.getEfficacy2());
-            intent.putExtra("efficacy3", clickedProduct.getEfficacy3());
-
+            
             // 이미지도 전달 (Optional)
             intent.putExtra("image", clickedProduct.getImg());
 
