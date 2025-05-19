@@ -73,6 +73,7 @@
             android:hint="예) ○○브랜드 크림"
             android:background="@drawable/border"
             android:padding="16dp"
+            android:inputType="textMultiLine|text"
             />
 
 
@@ -100,7 +101,17 @@
             android:hint="예) \n: 바르자마자 따가웠다.\n: 4시간이 지나 트러블이 생겼다."
             android:background="@drawable/border"
             android:padding="16dp"
+            android:inputType="textMultiLine|text"
             />
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:text="저장"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="100dp"
+                />
         </RelativeLayout>
 
         <View
@@ -145,6 +156,8 @@
 
 
             />
+
+
 
     </RelativeLayout>
 

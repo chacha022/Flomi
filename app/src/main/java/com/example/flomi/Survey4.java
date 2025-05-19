@@ -1,31 +1,33 @@
 package com.example.flomi;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.flomi.data.AppDatabase;
+import com.example.flomi.data.SurveyDao;
+import com.example.flomi.data.SurveyResponse;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Survey4 extends AppCompatActivity {
+
+    private AppDatabase db;
+    private SurveyDao surveyDao;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_survey4);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        // Room DB 인스턴스 생성
+        db = AppDatabase.getInstance(getApplicationContext());
+        surveyDao = db.surveyDao();
 
         String gender = getIntent().getStringExtra("gender");
         int birthYear = getIntent().getIntExtra("birthYear", 0);
@@ -33,41 +35,36 @@ public class Survey4 extends AppCompatActivity {
         String personalColor = getIntent().getStringExtra("personalColor");
         String skinConcern = getIntent().getStringExtra("skinConcern");
 
-        SurveyDBHelper dbHelper = new SurveyDBHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // 설문 데이터 객체 생성
+        SurveyResponse response = new SurveyResponse();
+        response.gender = gender;
+        response.birth_year = birthYear;
+        response.skin_type = skinType;
+        response.personal_color = personalColor;
+        response.skin_concern = skinConcern;
 
-        ContentValues values = new ContentValues();
-        values.put("gender", gender);
-        values.put("birth_year", birthYear);
-        values.put("skin_type", skinType);
-        values.put("personal_color", personalColor);
-        values.put("skin_concern", skinConcern);
+        // DB 작업은 메인 스레드에서 하면 안 되므로 별도 스레드에서 실행
+        executor.execute(() -> {
+            long id = surveyDao.insert(response);
+            runOnUiThread(() -> {
+                if (id != -1) {
+                    Toast.makeText(Survey4.this, "설문이 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Survey4.this, "저장 실패", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
 
-        long newRowId = db.insert(SurveyDBHelper.TABLE_NAME, null, values);
-
-        if (newRowId != -1) {
-            Toast.makeText(this, "설문이 저장되었습니다.", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "저장 실패", Toast.LENGTH_SHORT).show();
-        }
-
-        // 버튼 리스너는 그대로 유지
         ImageButton next = findViewById(R.id.survey4_btn_next1);
-        next.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(Survey4.this, Home.class);
-                startActivity(intent);
-            }
+        next.setOnClickListener(view -> {
+            Intent intent = new Intent(Survey4.this, Home.class);
+            startActivity(intent);
         });
 
         ImageButton back = findViewById(R.id.survey4_backButton);
-        back.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(Survey4.this, Survey3.class);
-                startActivity(intent);
-            }
+        back.setOnClickListener(view -> {
+            Intent intent = new Intent(Survey4.this, Survey3.class);
+            startActivity(intent);
         });
     }
 }
