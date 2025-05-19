@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Diary"
+    android:orientation="horizontal"
+    android:background="@drawable/gradient3"
+    >
+
+
+
+    <RelativeLayout
+        android:id="@+id/some_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToOutline="true">
+
+        <RelativeLayout
+            android:id="@+id/some_id2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            >
+
+            <TextView
+                android:id="@+id/num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="40dp"
+                android:text="0."
+                android:textSize="30dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/diary_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="나의 피부 일기"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                />
+
+
+
+
+            <TextView
+                android:id="@+id/diary_query1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="170dp"
+                android:text="사용한 제품"
+                android:textSize="20dp" />
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/diary_content1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="210dp"
+                android:hint="예) ○○브랜드 크림"
+                android:background="@drawable/border"
+                android:padding="16dp"
+                android:inputType="textMultiLine|text"
+                />
+
+
+            <TextView
+                android:id="@+id/diary_query2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="310dp"
+                android:text="당시 피부 상태"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/diary_image"
+                android:layout_width="245dp"
+                android:layout_height="125dp"
+                android:layout_marginTop="340dp"
+                android:background="@drawable/text"
+                app:srcCompat="@android:drawable/ic_menu_add" />
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/diary_content2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="470dp"
+                android:hint="예) \n: 바르자마자 따가웠다.\n: 4시간이 지나 트러블이 생겼다."
+                android:background="@drawable/border"
+                android:padding="16dp"
+                android:inputType="textMultiLine|text"
+                />
+
+            <Button
+                android:id="@+id/list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="목록"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="100dp"
+                />
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>
