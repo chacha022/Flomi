@@ -1,0 +1,57 @@
+[
+  {
+    "company": "아모레퍼시픽",
+    "name": "라네즈 워터뱅크 크림",
+    "category": "크림",
+    "skinTypes": "건성,복합성",
+    "concerns": "보습,피부결",
+    "efficacy": "수분 공급 및 피부 장벽 강화",
+    "company_productCount": "5",
+    "content": "히알루론산이 함유되어 깊은 보습감을 제공합니다.",
+    "image": "laneige_waterbank.jpg"
+  },
+  {
+    "company": "이니스프리",
+    "name": "그린티 씨드 세럼",
+    "category": "세럼",
+    "skinTypes": "지성,복합성",
+    "concerns": "유분,보습",
+    "efficacy": "유수분 밸런스 조절",
+    "company_productCount": "3",
+    "content": "청정 제주 녹차수로 피부를 진정시킵니다.",
+    "image": "innisfree_greentea.jpg"
+  },
+  {
+    "company": "더마토리",
+    "name": "하이포알러제닉 시카 크림",
+    "category": "크림",
+    "skinTypes": "민감성,건성",
+    "concerns": "진정,트러블",
+    "efficacy": "피부 장벽 보호 및 진정",
+    "company_productCount": "2",
+    "content": "센텔라아시아티카 추출물로 자극받은 피부 진정",
+    "image": "dermatory_cica.jpg"
+  },
+  {
+    "company": "닥터지",
+    "name": "레드 블레미쉬 수딩 크림",
+    "category": "크림",
+    "skinTypes": "지성,민감성",
+    "concerns": "트러블,진정",
+    "efficacy": "트러블 케어 및 수분 진정",
+    "company_productCount": "4",
+    "content": "병풀 추출물이 피부를 건강하게 유지해줍니다.",
+    "image": "drg_redblemish.jpg"
+  },
+  {
+    "company": "AHC",
+    "name": "아이크림 포 페이스",
+    "category": "아이크림",
+    "skinTypes": "모든 피부",
+    "concerns": "주름,탄력",
+    "efficacy": "잔주름 개선 및 탄력 부여",
+    "company_productCount": "6",
+    "content": "아이크림을 얼굴 전체에 바를 수 있도록 개발된 제품",
+    "image": "ahc_eyecream.jpg"
+  }
+]

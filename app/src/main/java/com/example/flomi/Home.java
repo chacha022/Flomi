@@ -41,7 +41,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //화면 전환
-                Intent intent = new Intent(Home.this, Diary.class);
+                Intent intent = new Intent(Home.this, DiaryList.class);
                 startActivity(intent);
             }
         });
