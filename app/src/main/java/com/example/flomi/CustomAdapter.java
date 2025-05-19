@@ -1,5 +1,6 @@
 package com.example.flomi;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,26 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         holder.tvEfficacy1.setText(product.getEfficacy1());
         holder.tvEfficacy2.setText(product.getEfficacy2());
         holder.tvEfficacy3.setText(product.getEfficacy3());
+
+        // 클릭 리스너 추가
+        holder.itemView.setOnClickListener(view -> {
+            // 클릭된 아이템의 데이터 가져오기
+            Product clickedProduct = localDataSet.get(position);
+
+            // Intent를 생성하여 데이터 전달
+            Intent intent = new Intent(view.getContext(), Detail.class);
+            intent.putExtra("company", clickedProduct.getCompany());
+            intent.putExtra("name", clickedProduct.getName());
+            intent.putExtra("efficacy1", clickedProduct.getEfficacy1());
+            intent.putExtra("efficacy2", clickedProduct.getEfficacy2());
+            intent.putExtra("efficacy3", clickedProduct.getEfficacy3());
+
+            // 이미지도 전달 (Optional)
+            intent.putExtra("image", clickedProduct.getImg());
+
+            // 다른 액티비티로 이동
+            view.getContext().startActivity(intent);
+        });
     }
 
     @Override
