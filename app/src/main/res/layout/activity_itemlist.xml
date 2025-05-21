@@ -34,9 +34,10 @@
 
 
             <ImageButton
+                android:id="@+id/likeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/search"
+                android:background="@drawable/like"
                 android:layout_margin="15dp"
                 android:layout_alignParentEnd="true"
                 />
