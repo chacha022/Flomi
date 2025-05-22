@@ -1,6 +1,8 @@
 package com.example.flomi;
 
 import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.icu.text.SimpleDateFormat;
@@ -98,22 +100,22 @@ public class Category extends AppCompatActivity {
     }
 
     private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                Toast.makeText(this, "파일 생성 실패", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_" + System.currentTimeMillis() + ".jpg");
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);  // 갤러리 Pictures 폴더
 
-            if (photoFile != null) {
-                photoURI = FileProvider.getUriForFile(this,
-                        getPackageName() + ".fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                cameraLauncher.launch(takePictureIntent);  // <- 여기!
-            }
+        ContentResolver resolver = getContentResolver();
+        Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        if (imageUri != null) {
+            photoURI = imageUri;
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            cameraLauncher.launch(intent);
+        } else {
+            Toast.makeText(this, "갤러리에 저장할 수 없습니다", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -136,15 +138,4 @@ public class Category extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Toast.makeText(this, "사진 촬영 완료", Toast.LENGTH_SHORT).show();
-
-            // 촬영한 이미지를 카메라 버튼에 표시하려면 다음 코드 사용
-            ImageButton cameraBtn = findViewById(R.id.camera);
-            cameraBtn.setImageURI(photoURI);
-        }
-    }
 }
