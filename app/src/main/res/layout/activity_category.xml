@@ -37,87 +37,89 @@
             />
 
         <ImageButton
+            android:id="@+id/camera"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_marginTop="150dp"
             android:layout_centerHorizontal="true"
             android:src="@android:drawable/ic_menu_camera" />
 
-    <RelativeLayout
-        android:id="@+id/some_check"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToOutline="true"
-        android:layout_marginTop="500dp"
-        android:gravity="center_horizontal"
-        >
 
-        <CheckBox
-            android:id="@+id/check1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지성"
-            android:textSize="20dp"
-            />
+        <RelativeLayout
+            android:id="@+id/some_check"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToOutline="true"
+            android:layout_marginTop="500dp"
+            android:gravity="center_horizontal"
+            >
 
-        <CheckBox
-            android:id="@+id/check2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:text="건성"
-            android:textSize="20dp"
-            />
+            <CheckBox
+                android:id="@+id/check1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="지성"
+                android:textSize="20dp"
+                />
 
-        <CheckBox
-            android:id="@+id/check3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:text="복합성"
-            android:textSize="20dp"
-            />
+            <CheckBox
+                android:id="@+id/check2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:text="건성"
+                android:textSize="20dp"
+                />
 
-        <CheckBox
-            android:id="@+id/check4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="여드름"
-            android:textSize="20dp"
-            />
+            <CheckBox
+                android:id="@+id/check3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:text="복합성"
+                android:textSize="20dp"
+                />
 
-        <CheckBox
-            android:id="@+id/check5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="50dp"
-            android:text="좁쌀"
-            android:textSize="20dp"
-            />
+            <CheckBox
+                android:id="@+id/check4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="여드름"
+                android:textSize="20dp"
+                />
 
-        <CheckBox
-            android:id="@+id/check6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="50dp"
-            android:text="블랙헤드"
-            android:textSize="20dp"
-            />
+            <CheckBox
+                android:id="@+id/check5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="50dp"
+                android:text="좁쌀"
+                android:textSize="20dp"
+                />
+
+            <CheckBox
+                android:id="@+id/check6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="50dp"
+                android:text="블랙헤드"
+                android:textSize="20dp"
+                />
 
 
 
-        <Button
-            android:id="@+id/find"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="찾기"
-            android:layout_marginTop="150dp"
-            android:layout_marginHorizontal="100dp"
-            />
-    </RelativeLayout>
+            <Button
+                android:id="@+id/find"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="찾기"
+                android:layout_marginTop="150dp"
+                android:layout_marginHorizontal="100dp"
+                />
+        </RelativeLayout>
 
 
         <View
