@@ -58,14 +58,7 @@
                 android:layout_marginTop="170dp"
                 android:text="어떤 제품을 사용하셨나요?"
                 android:textSize="20dp" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="175dp"
-                android:layout_marginLeft="230dp"
-                android:background="@drawable/baseline_arrow_forward_ios_24"
-                />
+            
 
             <MultiAutoCompleteTextView
                 android:id="@+id/diary_answer1"
