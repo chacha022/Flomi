@@ -11,12 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.example.flomi.data.Product;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
-    private ArrayList<Product> localDataSet;
+    private List<Product> localDataSet;
 
-    // ===== 뷰홀더 클래스 =====================================================
+    public CustomAdapter(List<Product> dataSet) {
+        this.localDataSet = dataSet;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivProfile;
         TextView tvCompany, tvName, tvEfficacy1;
@@ -29,46 +35,39 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             tvEfficacy1 = itemView.findViewById(R.id.tv_efficacy1);
         }
     }
-    // ========================================================================
-
-    // ----- 생성자 --------------------------------------
-    public CustomAdapter(ArrayList<Product> dataSet) {
-        localDataSet = dataSet;
-    }
-    // --------------------------------------------------
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_recyclerview, parent, false);  // XML 파일명
+                .inflate(R.layout.item_recyclerview, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = localDataSet.get(position);
-        holder.ivProfile.setImageResource(product.getImg());
+
+        // 이미지 셋팅 (drawable id가 문자열로 저장된 경우)
+        holder.ivProfile.setImageResource(product.getImageResId());
+
+        // 텍스트 셋팅
         holder.tvCompany.setText(product.getCompany());
         holder.tvName.setText(product.getName());
-        holder.tvEfficacy1.setText(product.getEfficacy1());
 
-        // 클릭 리스너 추가
-        holder.itemView.setOnClickListener(view -> {
-            // 클릭된 아이템의 데이터 가져오기
-            Product clickedProduct = localDataSet.get(position);
+        // efficacy가 "보습,트러블" 식으로 콤마로 연결된 경우 첫 번째 효능만 표시
+        String efficacy = product.getEfficacy();  // 그대로 가져오기
+        holder.tvEfficacy1.setText(efficacy);
 
-            // Intent를 생성하여 데이터 전달
-            Intent intent = new Intent(view.getContext(), Detail.class);
-            intent.putExtra("company", clickedProduct.getCompany());
-            intent.putExtra("name", clickedProduct.getName());
-            intent.putExtra("efficacy1", clickedProduct.getEfficacy1());
-            
-            // 이미지도 전달 (Optional)
-            intent.putExtra("image", clickedProduct.getImg());
 
-            // 다른 액티비티로 이동
-            view.getContext().startActivity(intent);
+        // 아이템 클릭 시 상세 화면 이동 (예시)
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), Detail.class);
+            intent.putExtra("company", product.getCompany());
+            intent.putExtra("name", product.getName());
+            intent.putExtra("efficacy", efficacy);
+            intent.putExtra("imageResId", product.getImageResId());
+            v.getContext().startActivity(intent);
         });
     }
 

@@ -8,3 +8,5 @@ data class Product(
     val efficacy2: String,
     val efficacy3: String
 )
+
+

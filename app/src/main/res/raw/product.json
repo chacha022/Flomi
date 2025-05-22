@@ -53,5 +53,170 @@
     "company_productCount": "6",
     "content": "아이크림을 얼굴 전체에 바를 수 있도록 개발된 제품",
     "image": "ahc_eyecream.jpg"
+  },
+  {
+    "company": "설화수",
+    "name": "윤조에센스",
+    "category": "에센스",
+    "skinTypes": "모든 피부",
+    "concerns": "피부 톤 개선,미백",
+    "efficacy": "피부 톤 개선 및 미백",
+    "company_productCount": "4",
+    "content": "전통 한방 성분이 피부에 활력을 부여합니다.",
+    "image": "sulwhasoo_yunjoessence.jpg"
+  },
+  {
+    "company": "미샤",
+    "name": "타임 레볼루션 더 퍼스트 트리트먼트 에센스",
+    "category": "에센스",
+    "skinTypes": "모든 피부",
+    "concerns": "피부 톤 개선,보습",
+    "efficacy": "피부 톤 개선 및 수분 공급",
+    "company_productCount": "5",
+    "content": "발효 성분이 피부에 활력을 부여합니다.",
+    "image": "missha_time_revolution.jpg"
+  },
+  {
+    "company": "라네즈",
+    "name": "워터뱅크 선크림",
+    "category": "선크림",
+    "skinTypes": "모든 피부",
+    "concerns": "자외선 차단,보습",
+    "efficacy": "자외선 차단 및 수분 공급",
+    "company_productCount": "5",
+    "content": "가벼운 제형으로 피부에 부담 없이 사용 가능합니다.",
+    "image": "laneige_waterbank_sunscreen.jpg"
+  },
+  {
+    "company": "이니스프리",
+    "name": "노세범 미네랄 선크림",
+    "category": "선크림",
+    "skinTypes": "지성,복합성",
+    "concerns": "자외선 차단,유분 조절",
+    "efficacy": "자외선 차단 및 유분 조절",
+    "company_productCount": "4",
+    "content": "미네랄 성분이 피부를 보호합니다.",
+    "image": "innisfree_nosebum_sunscreen.jpg"
+  },
+  {
+    "company": "후",
+    "name": "천기단",
+    "category": "크림",
+    "skinTypes": "모든 피부",
+    "concerns": "탄력,주름 개선",
+    "efficacy": "피부 탄력 및 주름 개선",
+    "company_productCount": "3",
+    "content": "고농축 한방 성분이 피부에 깊은 영양을 공급합니다.",
+    "image": "hoo_cheonggidan.jpg"
+  },
+  {
+    "company": "아이오페",
+    "name": "슈퍼바이탈 크림",
+    "category": "크림",
+    "skinTypes": "건성,노화 피부",
+    "concerns": "탄력,주름 개선",
+    "efficacy": "피부 탄력 및 주름 개선",
+    "company_productCount": "4",
+    "content": "피부 깊숙이 영양을 공급하여 탄력을 부여합니다.",
+    "image": "iope_supervital_cream.jpg"
+  },
+  {
+    "company": "피지오겔",
+    "name": "데일리 모이스춰라이징 크림",
+    "category": "크림",
+    "skinTypes": "민감성,건성",
+    "concerns": "진정,보습",
+    "efficacy": "피부 진정 및 보습",
+    "company_productCount": "3",
+    "content": "피부 장벽을 강화하여 외부 자극으로부터 보호합니다.",
+    "image": "physiogel_daily_moisturizing.jpg"
+  },
+  {
+    "company": "에스트라",
+    "name": "아토베리어 365 크림",
+    "category": "크림",
+    "skinTypes": "민감성,아토피성 피부",
+    "concerns": "진정,보습",
+    "efficacy": "피부 진정 및 보습",
+    "company_productCount": "2",
+    "content": "피부 장벽을 강화하여 외부 자극으로부터 보호합니다.",
+    "image": "estra_atobarrier_365.jpg"
+  },
+  {
+    "company": "더페이스샵",
+    "name": "더 테라피 스킨 리뉴얼 토너",
+    "category": "토너",
+    "skinTypes": "모든 피부",
+    "concerns": "피부 결 개선,각질 제거",
+    "efficacy": "피부 결 개선 및 각질 제거",
+    "company_productCount": "4",
+    "content": "부드러운 각질 제거로 매끄러운 피부 결을 형성합니다.",
+    "image": "thefaceshop_therapy_toner.jpg"
+  },
+  {
+    "company": "에뛰드하우스",
+    "name": "슈퍼 히어로 클렌징 폼",
+    "category": "클렌저",
+    "skinTypes": "모든 피부",
+    "concerns": "피부 결 개선,각질 제거",
+    "efficacy": "피부 결 개선 및 각질 제거",
+    "company_productCount": "5",
+    "content": "부드러운 거품이 피부를 깨끗하게 세정합니다.",
+    "image": "etude_superhero_cleanser.jpg"
+  },
+  {
+    "company": "더샘",
+    "name": "더마 플랜 수딩 크림",
+    "category": "크림",
+    "skinTypes": "민감성,건성",
+    "concerns": "보습,영양 공급",
+    "efficacy": "피부 보습 및 영양 공급",
+    "company_productCount": "3",
+    "content": "피부 장벽을 강화하여 보습력을 높입니다.",
+    "image": "thesaem_derma_plan_soothing_cream.jpg"
+  },
+  {
+    "company": "미샤",
+    "name": "수퍼 아쿠아 울트라 히알론 크림",
+    "category": "크림",
+    "skinTypes": "건성,복합성",
+    "concerns": "보습,피부 장벽 강화",
+    "efficacy": "깊은 보습 및 피부 장벽 강화",
+    "company_productCount": "6",
+    "content": "히알루론산이 피부에 수분을 공급합니다.",
+    "image": "missha_super_aqua_hyalon_cream.jpg"
+  },
+  {
+    "company": "스킨푸드",
+    "name": "블랙슈가 퍼펙트 에센셜 스크럽 2X",
+    "category": "스크럽",
+    "skinTypes": "모든 피부",
+    "concerns": "피부 톤 개선,각질 제거",
+    "efficacy": "피부 톤 개선 및 각질 제거",
+    "company_productCount": "3",
+    "content": "천연 설탕이 피부를 부드럽게 각질 제거합니다.",
+    "image": "skinfood_black_sugar_scrub.jpg"
+  },
+  {
+    "company": "더페이스샵",
+    "name": "화이트 트러플 브라이트닝 세럼",
+    "category": "세럼",
+    "skinTypes": "모든 피부",
+    "concerns": "피부 톤 개선,미백",
+    "efficacy": "피부 톤 개선 및 미백",
+    "company_productCount": "4",
+    "content": "화이트 트러플 추출물이 피부를 밝게 해줍니다.",
+    "image": "thefaceshop_white_truffle_serum.jpg"
+  },
+  {
+    "company": "이니스프리",
+    "name": "제주 그린티 수딩 앰플",
+    "category": "앰플",
+    "skinTypes": "모든 피부",
+    "concerns": "진정,보습",
+    "efficacy": "피부 진정 및 보습",
+    "company_productCount": "4",
+    "content": "제주 녹차수가 피부를 진정시킵니다.",
+    "image": "innisfree_jeju_greentea_ampoule.jpg"
   }
 ]

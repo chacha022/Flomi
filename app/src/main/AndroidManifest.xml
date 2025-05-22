@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Flomi"
         tools:targetApi="31">
         <activity
+            android:name=".LikeList"
+            android:exported="false" />
+        <activity
             android:name=".DiaryDetail"
             android:exported="false" />
         <activity
