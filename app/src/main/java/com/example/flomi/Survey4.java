@@ -60,11 +60,5 @@ public class Survey4 extends AppCompatActivity {
             Intent intent = new Intent(Survey4.this, Home.class);
             startActivity(intent);
         });
-
-        ImageButton back = findViewById(R.id.survey4_backButton);
-        back.setOnClickListener(view -> {
-            Intent intent = new Intent(Survey4.this, Survey3.class);
-            startActivity(intent);
-        });
     }
 }
