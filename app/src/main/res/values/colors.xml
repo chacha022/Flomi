@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="light_purple">#CFB9EB</color> <!-- 연보라색 -->
+    <color name="deep_purple">#6750a4</color>  <!-- 진보라색 -->
+
 </resources>
