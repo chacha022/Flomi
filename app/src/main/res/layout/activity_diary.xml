@@ -26,36 +26,38 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             >
-        <TextView
-            android:id="@+id/diary_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="나의 피부 일기"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            />
-
-        <TextView
-            android:id="@+id/diary_middleTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
-            android:text="나에게 맞는 화장품 성분을 찾아보세요!"
-            android:textSize="20dp"
-            android:layout_centerHorizontal="true"
-            />
+            <TextView
+                android:id="@+id/diary_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="나의 피부 일기"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                />
 
 
 
-        <TextView
-            android:id="@+id/diary_query1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="170dp"
-            android:text="어떤 제품을 사용하셨나요?"
-            android:textSize="20dp" />
+            <TextView
+                android:id="@+id/diary_middleTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90dp"
+                android:text="나에게 맞는 화장품 성분을 찾아보세요!"
+                android:textSize="20dp"
+                android:layout_centerHorizontal="true"
+                />
+
+
+
+            <TextView
+                android:id="@+id/diary_query1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="170dp"
+                android:text="어떤 제품을 사용하셨나요?"
+                android:textSize="20dp" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -65,44 +67,44 @@
                 android:background="@drawable/baseline_arrow_forward_ios_24"
                 />
 
-        <MultiAutoCompleteTextView
-            android:id="@+id/diary_answer1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="210dp"
-            android:hint="예) ○○브랜드 크림"
-            android:background="@drawable/border"
-            android:padding="16dp"
-            android:inputType="textMultiLine|text"
-            />
+            <MultiAutoCompleteTextView
+                android:id="@+id/diary_answer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="210dp"
+                android:hint="예) ○○브랜드 크림"
+                android:background="@drawable/border"
+                android:padding="16dp"
+                android:inputType="textMultiLine|text"
+                />
 
 
-        <TextView
-            android:id="@+id/diary_query2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="310dp"
-            android:text="오늘 피부 상태는 어땠나요?"
-            android:textSize="20dp" />
+            <TextView
+                android:id="@+id/diary_query2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="310dp"
+                android:text="오늘 피부 상태는 어땠나요?"
+                android:textSize="20dp" />
 
-        <ImageButton
-            android:id="@+id/diary_pick"
-            android:layout_width="245dp"
-            android:layout_height="125dp"
-            android:layout_marginTop="340dp"
-            android:background="@drawable/text"
-            app:srcCompat="@android:drawable/ic_menu_add" />
+            <ImageButton
+                android:id="@+id/diary_pick"
+                android:layout_width="245dp"
+                android:layout_height="125dp"
+                android:layout_marginTop="340dp"
+                android:background="@drawable/text"
+                app:srcCompat="@android:drawable/ic_menu_add" />
 
-        <MultiAutoCompleteTextView
-            android:id="@+id/diary_answer2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="470dp"
-            android:hint="예) \n: 바르자마자 따가웠다.\n: 4시간이 지나 트러블이 생겼다."
-            android:background="@drawable/border"
-            android:padding="16dp"
-            android:inputType="textMultiLine|text"
-            />
+            <MultiAutoCompleteTextView
+                android:id="@+id/diary_answer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="470dp"
+                android:hint="예) \n: 바르자마자 따가웠다.\n: 4시간이 지나 트러블이 생겼다."
+                android:background="@drawable/border"
+                android:padding="16dp"
+                android:inputType="textMultiLine|text"
+                />
 
             <Button
                 android:id="@+id/save"

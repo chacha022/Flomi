@@ -1,8 +1,8 @@
 package com.example.flomi;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class DiaryList extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class DiaryList extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_diary_list);
 
-        // 시스템 인셋 적용 (상단바, 하단바 패딩)
+        // 시스템 인셋 적용
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -53,22 +54,29 @@ public class DiaryList extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // ===== RecyclerView 설정 =====
+        // RecyclerView 설정
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // 더미 데이터 생성
-        List<DiaryItem> diaryList = new ArrayList<>();
-        for (int i = 1; i <= 20; i++) {
-            diaryList.add(new DiaryItem(
-                    String.valueOf(i),
-                    "일지 제목 " + i,
-                    "이것은 일지 " + i + "의 내용입니다."
-            ));
-        }
+        // 저장된 다이어리 불러오기
+        new Thread(() -> {
+            // Room DB 인스턴스 가져오기
+            DiaryDatabase db = DiaryDatabase.getInstance(getApplicationContext());
+            List<DiaryEntity> diaryEntities = db.diaryDao().getAllDiaries(); // 전체 데이터 가져오기
 
-        // 어댑터 설정
-        DiaryAdapter adapter = new DiaryAdapter(diaryList);
-        recyclerView.setAdapter(adapter);
+            // DiaryItem 리스트로 변환
+            List<DiaryItem> diaryList = new ArrayList<>();
+            int i = 1;
+            for (DiaryEntity diary : diaryEntities) {
+                diaryList.add(new DiaryItem(String.valueOf(i), diary.getTitle(), diary.getContent()));
+                i++;
+            }
+
+            // 어댑터 설정 (UI 스레드에서 실행해야 함)
+            runOnUiThread(() -> {
+                DiaryAdapter adapter = new DiaryAdapter(diaryList);
+                recyclerView.setAdapter(adapter);
+            });
+        }).start();
     }
 }
