@@ -1,7 +1,6 @@
 package com.example.flomi;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,9 +13,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flomi.data.AppDatabase;
+import com.example.flomi.data.DiaryEntity;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class DiaryList extends AppCompatActivity {
 
@@ -61,14 +62,14 @@ public class DiaryList extends AppCompatActivity {
         // 저장된 다이어리 불러오기
         new Thread(() -> {
             // Room DB 인스턴스 가져오기
-            DiaryDatabase db = DiaryDatabase.getInstance(getApplicationContext());
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
             List<DiaryEntity> diaryEntities = db.diaryDao().getAllDiaries(); // 전체 데이터 가져오기
 
             // DiaryItem 리스트로 변환
             List<DiaryItem> diaryList = new ArrayList<>();
             int i = 1;
             for (DiaryEntity diary : diaryEntities) {
-                diaryList.add(new DiaryItem(String.valueOf(i), diary.getTitle(), diary.getContent()));
+                diaryList.add(new DiaryItem(String.valueOf(i), diary.getTitle(), diary.getContent(),diary.getImageUri()));
                 i++;
             }
 

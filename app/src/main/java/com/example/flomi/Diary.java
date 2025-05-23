@@ -11,7 +11,9 @@ import android.widget.ImageButton;
 import android.widget.MultiAutoCompleteTextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -19,13 +21,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.flomi.data.AppDatabase;
+import com.example.flomi.data.DiaryEntity;
+
 public class Diary extends AppCompatActivity {
 
     MultiAutoCompleteTextView answer1, answer2;
     ImageButton back, imageButton;
 
     private static final int REQUEST_CODE_PERMISSION = 100;
-    private static final int REQUEST_CODE_GALLERY = 101;
+    private ActivityResultLauncher<Intent> galleryLauncher;
+
+    // 중복 클릭 방지 시간
+    private long lastClickTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +48,26 @@ public class Diary extends AppCompatActivity {
 
         answer1 = findViewById(R.id.diary_answer1);
         answer2 = findViewById(R.id.diary_answer2);
-        imageButton = findViewById(R.id.diary_pick); // 갤러리용 이미지 버튼
+        imageButton = findViewById(R.id.diary_pick);
         back = findViewById(R.id.backButton);
 
-        // 갤러리 이미지 불러오기
-        imageButton.setOnClickListener(view -> checkPermissionAndOpenGallery());
+        // 갤러리 결과 처리
+        galleryLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri selectedImageUri = result.getData().getData();
+                        imageButton.setImageURI(selectedImageUri);
+                    }
+                }
+        );
+
+        // 갤러리 버튼 클릭
+        imageButton.setOnClickListener(view -> {
+            if (System.currentTimeMillis() - lastClickTime < 1000) return; // 1초 내 중복 클릭 방지
+            lastClickTime = System.currentTimeMillis();
+            checkPermissionAndOpenGallery();
+        });
 
         // 저장 버튼 클릭
         Button save = findViewById(R.id.save);
@@ -53,7 +76,7 @@ public class Diary extends AppCompatActivity {
             String content = answer2.getText().toString().trim();
 
             if (!title.isEmpty() && !content.isEmpty()) {
-                DiaryDatabase db = DiaryDatabase.getInstance(getApplicationContext());
+                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
                 DiaryEntity diary = new DiaryEntity(title, content);
 
                 new Thread(() -> {
@@ -92,25 +115,15 @@ public class Diary extends AppCompatActivity {
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-        startActivityForResult(intent, REQUEST_CODE_GALLERY);
+        galleryLauncher.launch(intent);
     }
 
+    // 권한 요청 결과 처리
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null) {
-            Uri selectedImageUri = data.getData();
-            imageButton.setImageURI(selectedImageUri); // 이미지 버튼에 이미지 표시
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == REQUEST_CODE_PERMISSION && grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == REQUEST_CODE_PERMISSION && grantResults.length > 0 &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             openGallery();
         }
     }
