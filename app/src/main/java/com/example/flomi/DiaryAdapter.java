@@ -53,6 +53,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
             intent.putExtra("number", item.getNumber());
             intent.putExtra("title", item.getTitle());
             intent.putExtra("content", item.getContent());
+            intent.putExtra("imageUri", item.getImageUri());
             view.getContext().startActivity(intent);
         });
     }

@@ -1,4 +1,4 @@
-package com.example.flomi;
+package com.example.flomi.data;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -11,6 +11,8 @@ public class DiaryEntity {
 
     private String title;
     private String content;
+
+    private String imageUri; // 또는 imagePath
 
     // 생성자
     public DiaryEntity(String title, String content) {
@@ -31,6 +33,10 @@ public class DiaryEntity {
         return content;
     }
 
+    public String getImageUri(){
+        return imageUri;
+    }
+
     // Setter (Room이 내부적으로 사용)
     public void setId(int id) {
         this.id = id;
@@ -42,5 +48,9 @@ public class DiaryEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 }

@@ -32,6 +32,9 @@
         </provider>
 
         <activity
+            android:name=".DiaryDetail"
+            android:exported="false" />
+        <activity
             android:name=".DiaryList"
             android:exported="false" />
         <activity
