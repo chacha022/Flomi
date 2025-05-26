@@ -23,7 +23,7 @@ public class ProductDataLoader {
     public static void loadAndStoreProducts(Context context, @RawRes int rawResId) {
         new Thread(() -> {
             try {
-                // JSON 읽기
+                // 1. JSON 읽기
                 Resources res = context.getResources();
                 InputStream inputStream = res.openRawResource(rawResId);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -35,35 +35,42 @@ public class ProductDataLoader {
                 reader.close();
 
                 String json = jsonBuilder.toString();
-
-                // JSON 해시 계산 (간단히 MD5 사용)
                 String newJsonHash = md5(json);
 
-                // 이전 해시 불러오기 (SharedPreferences 사용)
+                // 2. SharedPreferences에서 이전 상태 확인
                 SharedPreferences prefs = context.getSharedPreferences("product_prefs", Context.MODE_PRIVATE);
                 String savedHash = prefs.getString("json_hash", "");
+                int savedSchemaVersion = prefs.getInt("schema_version", -1);
+
+                int currentSchemaVersion = AppDatabase.VERSION;
+
+                boolean shouldReload = false;
 
                 if (!newJsonHash.equals(savedHash)) {
-                    // 해시 다르면 데이터 변경된 것 → DB 업데이트 필요
+                    shouldReload = true;
+                } else if (savedSchemaVersion != currentSchemaVersion) {
+                    shouldReload = true;
+                }
 
-                    // JSON 파싱
+                if (shouldReload) {
+                    // 3. JSON -> 객체로 변환
                     Gson gson = new Gson();
-                    Type listType = new TypeToken<List<Product>>() {
-                    }.getType();
+                    Type listType = new TypeToken<List<Product>>() {}.getType();
                     List<Product> products = gson.fromJson(json, listType);
 
+                    // 4. Room DB에 저장
                     AppDatabase db = AppDatabase.getInstance(context);
-
-                    // 트랜잭션으로 기존 데이터 삭제 후 새로 삽입
                     db.runInTransaction(() -> {
                         db.productDao().deleteAll();
                         db.productDao().insertAll(products);
                     });
 
-                    // 변경된 해시 저장
-                    prefs.edit().putString("json_hash", newJsonHash).apply();
+                    // 5. SharedPreferences에 최신 상태 저장
+                    prefs.edit()
+                            .putString("json_hash", newJsonHash)
+                            .putInt("schema_version", currentSchemaVersion)
+                            .apply();
                 }
-                // else 기존 데이터와 같아서 업데이트 불필요
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -71,7 +78,7 @@ public class ProductDataLoader {
         }).start();
     }
 
-    // MD5 해시 계산 함수
+    // MD5 해시 생성기
     private static String md5(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");

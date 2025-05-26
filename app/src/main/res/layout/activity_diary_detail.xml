@@ -60,12 +60,11 @@
                 android:text="사용한 제품"
                 android:textSize="20dp" />
 
-            <MultiAutoCompleteTextView
+            <TextView
                 android:id="@+id/diary_content1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="210dp"
-                android:hint="예) ○○브랜드 크림"
                 android:background="@drawable/border"
                 android:padding="16dp"
                 android:inputType="textMultiLine|text"
@@ -88,12 +87,11 @@
                 android:background="@drawable/text"
                 app:srcCompat="@android:drawable/ic_menu_add" />
 
-            <MultiAutoCompleteTextView
+            <TextView
                 android:id="@+id/diary_content2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="470dp"
-                android:hint="예) \n: 바르자마자 따가웠다.\n: 4시간이 지나 트러블이 생겼다."
                 android:background="@drawable/border"
                 android:padding="16dp"
                 android:inputType="textMultiLine|text"

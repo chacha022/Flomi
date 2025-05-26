@@ -32,6 +32,9 @@ public class Diary extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSION = 100;
     private ActivityResultLauncher<Intent> galleryLauncher;
 
+    // 선택한 이미지 URI 문자열 저장 변수 추가
+    private String selectedImageUriString = null;
+
     // 중복 클릭 방지 시간
     private long lastClickTime = 0;
 
@@ -51,13 +54,14 @@ public class Diary extends AppCompatActivity {
         imageButton = findViewById(R.id.diary_pick);
         back = findViewById(R.id.backButton);
 
-        // 갤러리 결과 처리
+        // 갤러리 결과 처리 - URI 저장 추가
         galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         Uri selectedImageUri = result.getData().getData();
                         imageButton.setImageURI(selectedImageUri);
+                        selectedImageUriString = selectedImageUri.toString();  // URI 문자열 저장
                     }
                 }
         );
@@ -78,6 +82,7 @@ public class Diary extends AppCompatActivity {
             if (!title.isEmpty() && !content.isEmpty()) {
                 AppDatabase db = AppDatabase.getInstance(getApplicationContext());
                 DiaryEntity diary = new DiaryEntity(title, content);
+                diary.setImageUri(selectedImageUriString);  // 선택한 이미지 URI 저장
 
                 new Thread(() -> {
                     db.diaryDao().insert(diary);
