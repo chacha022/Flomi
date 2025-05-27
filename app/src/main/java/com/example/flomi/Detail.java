@@ -1,6 +1,8 @@
 package com.example.flomi;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +15,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class Detail extends AppCompatActivity {
 
     @Override
@@ -21,46 +26,51 @@ public class Detail extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_detail);
 
-        // 상태바/네비바에 대응한 패딩 처리
+        // 상태바/네비바 대응 패딩 처리
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // UI 뷰 연결
+        // UI 연결
         ImageButton back = findViewById(R.id.backButton);
         Button like = findViewById(R.id.like);
         TextView tvCompany = findViewById(R.id.company);
         TextView tvProduct = findViewById(R.id.product);
         TextView tvCompany2 = findViewById(R.id.company2);
-        ImageView ivImage = findViewById(R.id.image);
+        ImageView ivImage = findViewById(R.id.imageView);
 
-        // Intent에서 데이터 받기
+        // Intent 데이터 수신
         Intent intent = getIntent();
         String company = intent.getStringExtra("company");
         String name = intent.getStringExtra("name");
-        String efficacy1 = intent.getStringExtra("efficacy1");
-        int imageResId = intent.getIntExtra("image", R.drawable.light); // 기본 이미지 지정
+        String efficacy1 = intent.getStringExtra("efficacy");
+        String imageFileName = intent.getStringExtra("image");  // 예: "sample1.png"
 
-        // 데이터 화면에 세팅
+        // 텍스트 표시
         tvCompany.setText(company + " >");
         tvCompany2.setText(company);
         tvProduct.setText(name);
-        // 만약 효능 관련 TextView도 있다면 여기에 세팅 가능
-        // 예) tvEfficacy.setText(efficacy1);
+        // 효능 텍스트도 필요하면 여기에 추가 가능
 
+        // 이미지 표시 (assets/picture/ 경로에서 Bitmap 로드)
+        try {
+            InputStream is = getAssets().open("picture/" + imageFileName);
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            ivImage.setImageBitmap(bitmap);
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            ivImage.setImageResource(R.drawable.light);  // 오류 시 기본 이미지
+        }
 
-        ivImage.setImageResource(imageResId);
-
-
-        // 뒤로가기 버튼 클릭 시 ItemList로 이동
+        // 뒤로 가기
         back.setOnClickListener(view -> {
             Intent backIntent = new Intent(Detail.this, ItemList.class);
             startActivity(backIntent);
             finish();
         });
-
 
         // 홈 버튼
         ImageButton home = findViewById(R.id.home);
@@ -69,11 +79,11 @@ public class Detail extends AppCompatActivity {
             startActivity(h);
         });
 
-
+        // 찜하기 (like) 버튼 클릭 처리
         Button likeButton = findViewById(R.id.like);
         likeButton.setOnClickListener(v -> {
             v.setSelected(!v.isSelected());
         });
-        // TODO: like 버튼 기능 구현 (찜하기 등)
+        // TODO: 찜 목록 저장 기능 구현
     }
 }
