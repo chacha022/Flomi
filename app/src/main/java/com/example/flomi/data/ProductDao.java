@@ -3,6 +3,7 @@ package com.example.flomi.data;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -26,5 +27,8 @@ public interface ProductDao {
 
     @Query("SELECT * FROM product WHERE productId = :id LIMIT 1")
     Product getProductById(int id);
+
+    @Update
+    void updateProduct(Product product); // ⬅️ 추가
 }
 

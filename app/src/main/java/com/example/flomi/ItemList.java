@@ -42,6 +42,15 @@ public class ItemList extends AppCompatActivity {
 
             runOnUiThread(() -> {
                 CustomAdapter adapter = new CustomAdapter(productList);
+
+                // 클릭 시 현재 시각 저장 후 DB 업데이트
+                adapter.setOnItemClickListener(product -> {
+                    product.createdAt = new java.util.Date();  // 현재 시각 저장
+
+                    // 백그라운드 스레드에서 DB 업데이트 실행
+                    new Thread(() -> db.productDao().updateProduct(product)).start();
+                });
+
                 recyclerView.setAdapter(adapter);
             });
         }).start();

@@ -6,14 +6,16 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.flomi.R;
 
-@Database(entities = {SurveyResponse.class, Product.class, DiaryEntity.class}, version = 5)
+@Database(entities = {SurveyResponse.class, Product.class, DiaryEntity.class}, version = 6)
+@TypeConverters({DateConverter.class})  // ✅ 여기 추가!
 public abstract class AppDatabase extends RoomDatabase {
 
-    public static final int VERSION = 5;  // 현재 데이터베이스 버전에 맞춤
+    public static final int VERSION = 6;
 
     private static volatile AppDatabase instance;
 
@@ -37,8 +39,6 @@ public abstract class AppDatabase extends RoomDatabase {
             @Override
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
-                // 데이터베이스가 처음 생성될 때 JSON 데이터를 읽어와 저장
-                // 별도 스레드에서 실행됨
                 ProductDataLoader.loadAndStoreProducts(context, R.raw.product);
             }
         };

@@ -57,41 +57,31 @@ public class Home extends AppCompatActivity {
         diaryImageView = findViewById(R.id.imageView2);
 
         // 1) 제품 추천 ViewPager 불러오기 (AsyncTask)
-        new AsyncTask<Void, Void, DiaryEntity>() {
+        viewPager = findViewById(R.id.viewPager);
+
+        new AsyncTask<Void, Void, List<Product>>() {
             @Override
-            protected DiaryEntity doInBackground(Void... voids) {
-                return db.diaryDao().getLatestDiary();  // 최근 일기 1개 가져오기
+            protected List<Product> doInBackground(Void... voids) {
+                SurveyResponse survey = db.surveyDao().getLatestResponse();
+                if (survey == null) return null;
+
+                String skinType = survey.skin_type;
+                return db.productDao().getTop5ProductsBySkinType(skinType);
             }
 
             @Override
-            protected void onPostExecute(DiaryEntity latestDiary) {
-                if (latestDiary != null) {
-                    // ID를 날짜 위치에 보여주기
-                    dateTextView.setText(String.valueOf(latestDiary.getId()));
-
-                    // 제목과 내용을 표시
-                    useItemTextView.setText(latestDiary.getTitle());
-                    contextTextView.setText(latestDiary.getContent());
-
-                    // 이미지 URI를 ImageView에 적용
-                    String uriString = latestDiary.getImageUri();
-                    if (uriString != null && !uriString.isEmpty()) {
-                        Uri imageUri = Uri.parse(uriString);
-                        diaryImageView.setImageURI(imageUri);
-                    } else {
-                        // 이미지가 없을 경우 기본 이미지 설정
-                        diaryImageView.setImageResource(R.drawable.light);
-                    }
+            protected void onPostExecute(List<Product> result) {
+                if (result != null && !result.isEmpty()) {
+                    recommendedProducts = result;
                 } else {
-                    // 데이터가 없을 경우 기본 메시지 설정
-                    dateTextView.setText("N/A");
-                    useItemTextView.setText("작성된 제목 없음");
-                    contextTextView.setText("작성된 내용 없음");
-                    diaryImageView.setImageResource(R.drawable.light);
+                    recommendedProducts = new ArrayList<>();
+                    // 기본 상품 추가 가능
                 }
+
+                ImagePagerAdapter adapter = new ImagePagerAdapter(Home.this, recommendedProducts, db);
+                viewPager.setAdapter(adapter);
             }
         }.execute();
-
         // 2) 최신 다이어리 불러와서 뷰에 표시 (AsyncTask)
         new AsyncTask<Void, Void, DiaryEntity>() {
             @Override
@@ -105,13 +95,23 @@ public class Home extends AppCompatActivity {
                     dateTextView.setText(String.valueOf(latestDiary.getId()));
                     useItemTextView.setText(latestDiary.getTitle());
                     contextTextView.setText(latestDiary.getContent());
+
+                    String uriString = latestDiary.getImageUri();
+                    if (uriString != null && !uriString.isEmpty()) {
+                        Uri imageUri = Uri.parse(uriString);
+                        diaryImageView.setImageURI(imageUri);
+                    } else {
+                        diaryImageView.setImageResource(R.drawable.light);
+                    }
                 } else {
                     dateTextView.setText("작성된 다이어리가 없습니다.");
                     useItemTextView.setText("");
                     contextTextView.setText("");
+                    diaryImageView.setImageResource(R.drawable.light);
                 }
             }
         }.execute();
+
 
         // 하단 메뉴 버튼 이벤트
         ImageButton category = findViewById(R.id.category);
