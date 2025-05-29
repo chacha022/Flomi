@@ -13,14 +13,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.flomi.data.AppDatabase;
 import com.example.flomi.data.DiaryDao;
 import com.example.flomi.data.DiaryEntity;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Home extends AppCompatActivity {
 
     private AppDatabase db;
+    private ViewPager2 viewPager;
+    private List<String> imageFileNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +42,18 @@ public class Home extends AppCompatActivity {
 
         db = AppDatabase.getInstance(getApplicationContext());
 
+        // 🔹 ViewPager2 설정
+        viewPager = findViewById(R.id.viewPager);
+        imageFileNames = Arrays.asList("Ampoule_Serum.jpg", "Ceramide_Ato_Lotion.jpg", "cica_mask.jpg", "Cleansing_Balm.jpg", "Cleansing_Milk.jpg"); // assets/images 폴더에 있어야 함
+        ImagePagerAdapter adapter = new ImagePagerAdapter(this, imageFileNames);
+        viewPager.setAdapter(adapter);
+
+        // 일기 정보
         ImageView imageView2 = findViewById(R.id.imageView2);
         TextView dateTv = findViewById(R.id.date);
         TextView useItemTv = findViewById(R.id.use_item);
         TextView contextTv = findViewById(R.id.context);
 
-        // 최신 일기 비동기 로딩
         new AsyncTask<Void, Void, DiaryEntity>() {
             @Override
             protected DiaryEntity doInBackground(Void... voids) {
@@ -52,7 +64,6 @@ public class Home extends AppCompatActivity {
             @Override
             protected void onPostExecute(DiaryEntity diary) {
                 if (diary != null) {
-                    // id가 int이므로 문자열로 변환하여 세팅
                     dateTv.setText(String.valueOf(diary.getId()));
                     useItemTv.setText(diary.getTitle());
                     contextTv.setText(diary.getContent());
@@ -84,22 +95,19 @@ public class Home extends AppCompatActivity {
         ImageButton go_diary = findViewById(R.id.go_diary);
         go_diary.setOnClickListener(view -> {
             new Thread(() -> {
-                DiaryEntity latestDiary = db.diaryDao().getLatestDiary(); // 최신 일기 가져오는 메서드 (DAO에 구현 필요)
+                DiaryEntity latestDiary = db.diaryDao().getLatestDiary();
 
                 runOnUiThread(() -> {
                     Intent intent;
                     if (latestDiary != null) {
-                        // 최신 일기 상세보기 화면이 있다고 가정
                         intent = new Intent(Home.this, DiaryDetail.class);
                         intent.putExtra("diary_id", latestDiary.getId());
                     } else {
-                        // 없으면 새 일기 작성 화면으로 이동
                         intent = new Intent(Home.this, Diary.class);
                     }
                     startActivity(intent);
                 });
             }).start();
         });
-
     }
 }
