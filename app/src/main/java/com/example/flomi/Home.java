@@ -19,6 +19,7 @@ import com.example.flomi.data.AppDatabase;
 import com.example.flomi.data.DiaryDao;
 import com.example.flomi.data.DiaryEntity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Home extends AppCompatActivity {
 
     private AppDatabase db;
     private ViewPager2 viewPager;
-    private List<String> imageFileNames;
+    private List<Product> recommendedProducts; // imageFileNames 대신 사용
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,36 +47,32 @@ public class Home extends AppCompatActivity {
             return insets;
         });
 
-        viewPager = findViewById(R.id.viewPager); // viewPager 초기화 누락 주의
+        viewPager = findViewById(R.id.viewPager);
 
-
-        new AsyncTask<Void, Void, List<String>>() {
+        new AsyncTask<Void, Void, List<Product>>() {
             @Override
-            protected List<String> doInBackground(Void... voids) {
-                SurveyResponse survey = db.surveyDao().getLatestResponse(); // 이제 db는 null이 아님
+            protected List<Product> doInBackground(Void... voids) {
+                SurveyResponse survey = db.surveyDao().getLatestResponse();
                 if (survey == null) return null;
 
                 String skinType = survey.skin_type;
-                ProductDao productDao = db.productDao();
-                List<Product> matchedProducts = productDao.getTop5ProductsBySkinType(skinType);
-
-                return matchedProducts.stream()
-                        .map(product -> product.image)
-                        .toList();
+                return db.productDao().getTop5ProductsBySkinType(skinType);
             }
 
             @Override
-            protected void onPostExecute(List<String> recommendedImages) {
-                if (recommendedImages != null && !recommendedImages.isEmpty()) {
-                    imageFileNames = recommendedImages;
+            protected void onPostExecute(List<Product> result) {
+                if (result != null && !result.isEmpty()) {
+                    recommendedProducts = result;
                 } else {
-                    imageFileNames = Arrays.asList("default1.jpg", "default2.jpg");
+                    recommendedProducts = new ArrayList<>();
+                    // 기본 상품 추가 가능
                 }
 
-                ImagePagerAdapter adapter = new ImagePagerAdapter(Home.this, imageFileNames);
+                ImagePagerAdapter adapter = new ImagePagerAdapter(Home.this, recommendedProducts);
                 viewPager.setAdapter(adapter);
             }
         }.execute();
+
 
         ImageButton category = findViewById(R.id.category);
         category.setOnClickListener(view -> {
