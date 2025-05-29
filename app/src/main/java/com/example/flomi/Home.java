@@ -20,8 +20,14 @@ import com.example.flomi.data.DiaryEntity;
 import com.example.flomi.data.Product;
 import com.example.flomi.data.SurveyResponse;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class Home extends AppCompatActivity {
 
@@ -58,6 +64,43 @@ public class Home extends AppCompatActivity {
 
         // 1) 제품 추천 ViewPager 불러오기 (AsyncTask)
         viewPager = findViewById(R.id.viewPager);
+
+        new AsyncTask<Void, Void, Product>() {
+            @Override
+            protected Product doInBackground(Void... voids) {
+                // createdAt 가장 큰 최신 상품 가져오기
+                return db.productDao().getLatestProduct();
+            }
+
+            @Override
+            protected void onPostExecute(Product product) {
+                if (product != null) {
+                    ImageView itemImage = findViewById(R.id.item_image);
+                    TextView company = findViewById(R.id.company);
+                    TextView item = findViewById(R.id.item);
+                    TextView efficacy = findViewById(R.id.efficacy);
+
+                    // 이미지 URI가 있다면 세팅
+                    String imageName = product.getImage(); // e.g. "sample.png"
+                    if (imageName != null && !imageName.isEmpty()) {
+                        AssetManager assetManager = getAssets();
+                        try (InputStream is = assetManager.open("picture/" + imageName)) {
+                            Bitmap bitmap = BitmapFactory.decodeStream(is);
+                            itemImage.setImageBitmap(bitmap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            itemImage.setImageResource(R.drawable.light);  // 기본 이미지
+                        }
+                    } else {
+                        itemImage.setImageResource(R.drawable.light);
+                    }
+
+                    company.setText(product.getCompany());
+                    item.setText(product.getName());
+                    efficacy.setText(product.getEfficacy());
+                }
+            }
+        }.execute();
 
         new AsyncTask<Void, Void, List<Product>>() {
             @Override

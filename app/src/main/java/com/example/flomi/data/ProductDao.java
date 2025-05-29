@@ -30,5 +30,8 @@ public interface ProductDao {
 
     @Update
     void updateProduct(Product product); // ⬅️ 추가
+
+    @Query("SELECT * FROM product ORDER BY createdAt DESC LIMIT 1")
+    Product getLatestProduct();
 }
 
