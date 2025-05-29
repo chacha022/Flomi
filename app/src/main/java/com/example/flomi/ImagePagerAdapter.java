@@ -63,23 +63,18 @@ public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.Vi
             holder.imageView.setImageDrawable(null);
         }
 
-        // 클릭 시 Detail 액티비티로 상품 정보 전달 후 이동 및 현재 시각 업데이트
+        // 클릭 시 Detail 액티비티로 상품 id 전달 후 이동 및 현재 시각 업데이트
         holder.imageView.setOnClickListener(v -> {
-            // 1) 현재 시각 업데이트
             product.createdAt = new Date();
 
-            // 2) DB 업데이트 (별도 스레드)
             new Thread(() -> db.productDao().updateProduct(product)).start();
 
-            // 3) Detail 액티비티 이동
             Intent intent = new Intent(context, Detail.class);
-            intent.putExtra("company", product.getCompany());
-            intent.putExtra("name", product.getName());
-            intent.putExtra("efficacy", product.getEfficacy());
-            intent.putExtra("image", product.getImage());
+            intent.putExtra("id", product.getProductId());
             context.startActivity(intent);
         });
     }
+
 
     @Override
     public int getItemCount() {

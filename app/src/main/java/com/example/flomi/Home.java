@@ -65,6 +65,29 @@ public class Home extends AppCompatActivity {
 
         // 1) 제품 추천 ViewPager 불러오기 (AsyncTask)
         viewPager = findViewById(R.id.viewPager);
+        new AsyncTask<Void, Void, List<Product>>() {
+            @Override
+            protected List<Product> doInBackground(Void... voids) {
+                SurveyResponse survey = db.surveyDao().getLatestResponse();
+                if (survey == null) return null;
+
+                String skinType = survey.skin_type;
+                return db.productDao().getTop5ProductsBySkinType(skinType);
+            }
+
+            @Override
+            protected void onPostExecute(List<Product> result) {
+                if (result != null && !result.isEmpty()) {
+                    recommendedProducts = result;
+                } else {
+                    recommendedProducts = new ArrayList<>();
+                    // 기본 상품 추가 가능
+                }
+
+                ImagePagerAdapter adapter = new ImagePagerAdapter(Home.this, recommendedProducts, db);
+                viewPager.setAdapter(adapter);
+            }
+        }.execute();
 
         new AsyncTask<Void, Void, Product>() {
             @Override
@@ -72,7 +95,7 @@ public class Home extends AppCompatActivity {
                 // createdAt 가장 큰 최신 상품 가져오기
                 return db.productDao().getLatestProduct();
             }
-
+            // 2) 최근 구경한 상품 보여줌
             @Override
             protected void onPostExecute(Product product) {
                 if (product != null) {
@@ -102,31 +125,8 @@ public class Home extends AppCompatActivity {
                 }
             }
         }.execute();
-
-        new AsyncTask<Void, Void, List<Product>>() {
-            @Override
-            protected List<Product> doInBackground(Void... voids) {
-                SurveyResponse survey = db.surveyDao().getLatestResponse();
-                if (survey == null) return null;
-
-                String skinType = survey.skin_type;
-                return db.productDao().getTop5ProductsBySkinType(skinType);
-            }
-
-            @Override
-            protected void onPostExecute(List<Product> result) {
-                if (result != null && !result.isEmpty()) {
-                    recommendedProducts = result;
-                } else {
-                    recommendedProducts = new ArrayList<>();
-                    // 기본 상품 추가 가능
-                }
-
-                ImagePagerAdapter adapter = new ImagePagerAdapter(Home.this, recommendedProducts, db);
-                viewPager.setAdapter(adapter);
-            }
-        }.execute();
-        // 2) 최신 다이어리 불러와서 뷰에 표시 (AsyncTask)
+        
+        // 3) 최신 다이어리 불러와서 뷰에 표시 (AsyncTask)
         new AsyncTask<Void, Void, DiaryEntity>() {
             @Override
             protected DiaryEntity doInBackground(Void... voids) {
@@ -191,18 +191,21 @@ public class Home extends AppCompatActivity {
         ImageButton goProductBtn = findViewById(R.id.go_product);
 
         goProductBtn.setOnClickListener(view -> {
-            if (recommendedProducts != null && !recommendedProducts.isEmpty()) {
-                Product latestProduct = recommendedProducts.get(0);
+            new Thread(() -> {
+                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+                Product latestProduct = db.productDao().getLatestProduct();
 
-                Intent intent = new Intent(Home.this, Detail.class);
-                intent.putExtra("company", latestProduct.getCompany());
-                intent.putExtra("name", latestProduct.getName());
-                intent.putExtra("efficacy", latestProduct.getEfficacy());
-                intent.putExtra("image", latestProduct.getImage()); // 이미지 파일명만 전달
-                startActivity(intent);
-            } else {
-                Toast.makeText(Home.this, "추천 상품이 없습니다.", Toast.LENGTH_SHORT).show();
-            }
+                runOnUiThread(() -> {
+                    if (latestProduct != null) {
+                        Intent intent = new Intent(Home.this, Detail.class);
+                        intent.putExtra("id", latestProduct.getProductId());  // ID만 전달
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(Home.this, "최근 본 상품이 없습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }).start();
         });
+
     }
 }
