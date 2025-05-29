@@ -47,13 +47,9 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
         holder.titleTextView.setText(item.getTitle());
         holder.contentTextView.setText(item.getContent());
 
-        // 클릭 이벤트 추가
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), DiaryDetail.class);
-            intent.putExtra("number", item.getNumber());
-            intent.putExtra("title", item.getTitle());
-            intent.putExtra("content", item.getContent());
-            intent.putExtra("imageUri", item.getImageUri());
+            intent.putExtra("diary_id", item.getId()); // 진짜 DB id 넘기기
             view.getContext().startActivity(intent);
         });
     }

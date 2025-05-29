@@ -1,14 +1,19 @@
 package com.example.flomi;
 
 import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -30,12 +35,14 @@ public class Diary extends AppCompatActivity {
     ImageButton back, imageButton;
 
     private static final int REQUEST_CODE_PERMISSION = 100;
+    private static final int REQUEST_CAMERA_PERMISSION = 101;
+
     private ActivityResultLauncher<Intent> galleryLauncher;
+    private ActivityResultLauncher<Intent> cameraLauncher;
 
-    // 선택한 이미지 URI 문자열 저장 변수 추가
     private String selectedImageUriString = null;
+    private Uri photoUri = null;
 
-    // 중복 클릭 방지 시간
     private long lastClickTime = 0;
 
     @Override
@@ -54,26 +61,35 @@ public class Diary extends AppCompatActivity {
         imageButton = findViewById(R.id.diary_pick);
         back = findViewById(R.id.backButton);
 
-        // 갤러리 결과 처리 - URI 저장 추가
+        // 갤러리 런처
         galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         Uri selectedImageUri = result.getData().getData();
                         imageButton.setImageURI(selectedImageUri);
-                        selectedImageUriString = selectedImageUri.toString();  // URI 문자열 저장
+                        selectedImageUriString = selectedImageUri.toString();
                     }
-                }
-        );
+                });
 
-        // 갤러리 버튼 클릭
+        // 카메라 런처
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        imageButton.setImageURI(photoUri);
+                        selectedImageUriString = photoUri.toString();
+                    }
+                });
+
+        // 이미지 버튼 클릭 시 선택 다이얼로그
         imageButton.setOnClickListener(view -> {
-            if (System.currentTimeMillis() - lastClickTime < 1000) return; // 1초 내 중복 클릭 방지
+            if (System.currentTimeMillis() - lastClickTime < 1000) return;
             lastClickTime = System.currentTimeMillis();
-            checkPermissionAndOpenGallery();
+            showImageSourceDialog();
         });
 
-        // 저장 버튼 클릭
+        // 저장 버튼
         Button save = findViewById(R.id.save);
         save.setOnClickListener(view -> {
             String title = answer1.getText().toString().trim();
@@ -82,30 +98,40 @@ public class Diary extends AppCompatActivity {
             if (!title.isEmpty() && !content.isEmpty()) {
                 AppDatabase db = AppDatabase.getInstance(getApplicationContext());
                 DiaryEntity diary = new DiaryEntity(title, content);
-                diary.setImageUri(selectedImageUriString);  // 선택한 이미지 URI 저장
+                diary.setImageUri(selectedImageUriString);
 
                 new Thread(() -> {
                     db.diaryDao().insert(diary);
                     runOnUiThread(() -> {
-                        Intent intent = new Intent(Diary.this, DiaryList.class);
-                        startActivity(intent);
+                        startActivity(new Intent(Diary.this, DiaryList.class));
                     });
                 }).start();
             } else {
-                Intent intent = new Intent(Diary.this, DiaryList.class);
-                startActivity(intent);
+                startActivity(new Intent(Diary.this, DiaryList.class));
             }
         });
 
         // 뒤로가기
         back.setOnClickListener(view -> {
-            Intent intent = new Intent(Diary.this, DiaryList.class);
-            startActivity(intent);
+            startActivity(new Intent(Diary.this, DiaryList.class));
         });
     }
 
-    // 권한 확인 및 갤러리 열기
-    private void checkPermissionAndOpenGallery() {
+    private void showImageSourceDialog() {
+        // 카메라 or 갤러리 선택 다이얼로그
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("이미지 선택")
+                .setItems(new CharSequence[]{"갤러리에서 선택", "카메라로 촬영"}, (dialog, which) -> {
+                    if (which == 0) {
+                        checkGalleryPermission();
+                    } else {
+                        checkCameraPermission();
+                    }
+                }).show();
+    }
+
+    // 갤러리 권한 체크
+    private void checkGalleryPermission() {
         String permission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                 ? Manifest.permission.READ_MEDIA_IMAGES
                 : Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -117,19 +143,57 @@ public class Diary extends AppCompatActivity {
         }
     }
 
+    // 카메라 권한 체크
+    private void checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+        } else {
+            dispatchTakePictureIntent();
+        }
+    }
+
+    // 갤러리 열기
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         galleryLauncher.launch(intent);
     }
 
+    // 카메라 실행
+    private void dispatchTakePictureIntent() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_" + System.currentTimeMillis() + ".jpg");
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
+
+        ContentResolver resolver = getContentResolver();
+        Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        if (imageUri != null) {
+            photoUri = imageUri;
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+            cameraLauncher.launch(intent);
+        } else {
+            Toast.makeText(this, "갤러리에 저장할 수 없습니다", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     // 권한 요청 결과 처리
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_PERMISSION && grantResults.length > 0 &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == REQUEST_CODE_PERMISSION &&
+                grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             openGallery();
+        } else if (requestCode == REQUEST_CAMERA_PERMISSION &&
+                grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            dispatchTakePictureIntent();
+        } else {
+            Toast.makeText(this, "권한이 거부되었습니다", Toast.LENGTH_SHORT).show();
         }
     }
 }

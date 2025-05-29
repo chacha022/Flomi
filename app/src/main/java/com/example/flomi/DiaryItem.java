@@ -1,16 +1,22 @@
 package com.example.flomi;
 
 public class DiaryItem {
+    private int id;  // DB PK
     private String number;
     private String title;
     private String content;
-    private String imageUri;  // String 타입으로 저장 가정
+    private String imageUri;
 
-    public DiaryItem(String number, String title, String content, String imageUri) {
+    public DiaryItem(int id, String number, String title, String content, String imageUri) {
+        this.id = id;
         this.number = number;
         this.title = title;
         this.content = content;
         this.imageUri = imageUri;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNumber() {
