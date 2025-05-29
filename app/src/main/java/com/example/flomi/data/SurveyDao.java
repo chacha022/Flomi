@@ -13,5 +13,8 @@ public interface SurveyDao {
 
     @Query("SELECT * FROM survey_response")
     List<SurveyResponse> getAll();
+
+    @Query("SELECT * FROM survey_response ORDER BY id DESC LIMIT 1")
+    SurveyResponse getLatestResponse();
 }
 

@@ -22,6 +22,10 @@ import com.example.flomi.data.DiaryEntity;
 import java.util.Arrays;
 import java.util.List;
 
+import com.example.flomi.data.ProductDao;
+import com.example.flomi.data.Product;
+import com.example.flomi.data.SurveyResponse;
+
 public class Home extends AppCompatActivity {
 
     private AppDatabase db;
@@ -34,49 +38,42 @@ public class Home extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
 
+        db = AppDatabase.getInstance(getApplicationContext());
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        db = AppDatabase.getInstance(getApplicationContext());
+        viewPager = findViewById(R.id.viewPager); // viewPager 초기화 누락 주의
 
-        // 🔹 ViewPager2 설정
-        viewPager = findViewById(R.id.viewPager);
-        imageFileNames = Arrays.asList("Ampoule_Serum.jpg", "Ceramide_Ato_Lotion.jpg", "cica_mask.jpg", "Cleansing_Balm.jpg", "Cleansing_Milk.jpg"); // assets/images 폴더에 있어야 함
-        ImagePagerAdapter adapter = new ImagePagerAdapter(this, imageFileNames);
-        viewPager.setAdapter(adapter);
 
-        // 일기 정보
-        ImageView imageView2 = findViewById(R.id.imageView2);
-        TextView dateTv = findViewById(R.id.date);
-        TextView useItemTv = findViewById(R.id.use_item);
-        TextView contextTv = findViewById(R.id.context);
-
-        new AsyncTask<Void, Void, DiaryEntity>() {
+        new AsyncTask<Void, Void, List<String>>() {
             @Override
-            protected DiaryEntity doInBackground(Void... voids) {
-                DiaryDao diaryDao = db.diaryDao();
-                return diaryDao.getLatestDiary();
+            protected List<String> doInBackground(Void... voids) {
+                SurveyResponse survey = db.surveyDao().getLatestResponse(); // 이제 db는 null이 아님
+                if (survey == null) return null;
+
+                String skinType = survey.skin_type;
+                ProductDao productDao = db.productDao();
+                List<Product> matchedProducts = productDao.getTop5ProductsBySkinType(skinType);
+
+                return matchedProducts.stream()
+                        .map(product -> product.image)
+                        .toList();
             }
 
             @Override
-            protected void onPostExecute(DiaryEntity diary) {
-                if (diary != null) {
-                    dateTv.setText(String.valueOf(diary.getId()));
-                    useItemTv.setText(diary.getTitle());
-                    contextTv.setText(diary.getContent());
-
-                    String imageUri = diary.getImageUri();
-                    if (imageUri != null && !imageUri.isEmpty()) {
-                        imageView2.setImageURI(Uri.parse(imageUri));
-                    }
+            protected void onPostExecute(List<String> recommendedImages) {
+                if (recommendedImages != null && !recommendedImages.isEmpty()) {
+                    imageFileNames = recommendedImages;
                 } else {
-                    dateTv.setText("작성된 일기가 없습니다.");
-                    useItemTv.setText("");
-                    contextTv.setText("");
+                    imageFileNames = Arrays.asList("default1.jpg", "default2.jpg");
                 }
+
+                ImagePagerAdapter adapter = new ImagePagerAdapter(Home.this, imageFileNames);
+                viewPager.setAdapter(adapter);
             }
         }.execute();
 
