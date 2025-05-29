@@ -85,8 +85,10 @@
                 android:layout_width="245dp"
                 android:layout_height="125dp"
                 android:layout_marginTop="340dp"
+                android:scaleType="centerCrop"
                 android:background="@drawable/text"
                 app:srcCompat="@android:drawable/ic_menu_add" />
+
 
             <MultiAutoCompleteTextView
                 android:id="@+id/diary_answer2"

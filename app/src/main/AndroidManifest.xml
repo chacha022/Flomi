@@ -2,10 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- 카메라 사용 -->
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Android 13 (API 33) 이상에서 갤러리 이미지 접근 -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <!-- 또는 -->
+
+    <!-- Android 12 이하 기기에서 외부 저장소 접근 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 
     <application
