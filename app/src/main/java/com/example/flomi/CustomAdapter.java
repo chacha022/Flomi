@@ -68,18 +68,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         holder.tvName.setText(product.getName());
         holder.tvEfficacy1.setText(product.getEfficacy());
 
-        // 아이템 클릭 시 Detail 화면으로 이동
+        // 아이템 클릭 시 Detail 화면으로 이동 (id만 전달)
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onItemClick(product);  // 클릭된 제품 객체 전달
+                listener.onItemClick(product.getProductId());  // product 객체 대신 id만 전달
             }
 
-            // 기존 Detail 화면 이동 로직 유지
             Intent intent = new Intent(v.getContext(), Detail.class);
-            intent.putExtra("company", product.getCompany());
-            intent.putExtra("name", product.getName());
-            intent.putExtra("efficacy", product.getEfficacy());
-            intent.putExtra("image", product.getImage());
+            intent.putExtra("id", product.getProductId());  // id만 넘기도록 변경
             v.getContext().startActivity(intent);
         });
     }
@@ -89,8 +85,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         return localDataSet.size();
     }
 
+    // 인터페이스: 클릭 시 id만 전달하도록 변경
     public interface OnItemClickListener {
-        void onItemClick(Product product);
+        void onItemClick(int productId);
     }
 
     private OnItemClickListener listener;
