@@ -28,9 +28,16 @@ public class Product {
 
 
     // 게터 추가 (필요한 필드만)
+    public int getProductId() {
+        return productId;
+    }
     public String getCompany() { return company; }
     public String getName() { return name; }
+    public String getConcerns() { return concerns; }
     public String getEfficacy() { return efficacy; }
+
+    public String getContent() { return content; }
+    public String getCompany_productCount() { return company_productCount; }
     public String getImage() { return image; }
 
     // 이미지가 drawable 리소스 id 문자열이라면 정수 변환, 아니면 기본 이미지 리턴
