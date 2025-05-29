@@ -90,13 +90,13 @@
             />
     </RelativeLayout>
 
-        <ImageView
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="100dp"
             android:background="#eaeaeaea"
-            android:tooltipText="광고 상품으로 이동"
-            />
+            android:tooltipText="광고 상품으로 이동" />
 
     <RelativeLayout
         android:id="@+id/some_id3"
