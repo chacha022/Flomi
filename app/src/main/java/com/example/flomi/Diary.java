@@ -5,6 +5,8 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +30,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.flomi.data.AppDatabase;
 import com.example.flomi.data.DiaryEntity;
+
+import java.io.InputStream;
 
 public class Diary extends AppCompatActivity {
 
@@ -67,8 +71,15 @@ public class Diary extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         Uri selectedImageUri = result.getData().getData();
-                        imageButton.setImageURI(selectedImageUri);
-                        selectedImageUriString = selectedImageUri.toString();
+
+                        Uri copiedImageUri = copyImageToPicturesFolder(selectedImageUri);
+
+                        if (copiedImageUri != null) {
+                            selectedImageUriString = copiedImageUri.toString();
+                            imageButton.setImageURI(copiedImageUri);
+                        } else {
+                            Toast.makeText(this, "이미지 저장 실패", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
@@ -196,4 +207,45 @@ public class Diary extends AppCompatActivity {
             Toast.makeText(this, "권한이 거부되었습니다", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private Uri copyImageToPicturesFolder(Uri sourceUri) {
+        try {
+            ContentResolver resolver = getContentResolver();
+
+            ContentValues values = new ContentValues();
+            String filename = "IMG_" + System.currentTimeMillis() + ".jpg";
+            values.put(MediaStore.Images.Media.DISPLAY_NAME, filename);
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+            values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/Flomi");
+            // Flomi 폴더 안에 저장
+
+            Uri newImageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            if (newImageUri == null) return null;
+
+            // 원본 이미지 열기
+            InputStream inputStream = resolver.openInputStream(sourceUri);
+            if (inputStream == null) return null;
+
+            // 새 파일에 쓰기
+            try (java.io.OutputStream outputStream = resolver.openOutputStream(newImageUri)) {
+                if (outputStream == null) return null;
+
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                outputStream.flush();
+            }
+            inputStream.close();
+
+            return newImageUri;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }
