@@ -21,7 +21,7 @@ public interface ProductDao {
     @Query("DELETE FROM product")
     void deleteAll();  // 선택: 중복 저장 방지
 
-    @Query("SELECT * FROM product WHERE skinTypes LIKE '%' || :skinType || '%' LIMIT 5")
+    @Query("SELECT * FROM product WHERE skinTypes LIKE '%' || :skinType || '%' OR skinTypes LIKE '%모든 피부 타입%' LIMIT 5")
     List<Product> getTop5ProductsBySkinType(String skinType);
 }
 
