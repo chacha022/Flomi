@@ -70,11 +70,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         // 아이템 클릭 시 Detail 화면으로 이동
         holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(product);  // 클릭된 제품 객체 전달
+            }
+
+            // 기존 Detail 화면 이동 로직 유지
             Intent intent = new Intent(v.getContext(), Detail.class);
             intent.putExtra("company", product.getCompany());
             intent.putExtra("name", product.getName());
             intent.putExtra("efficacy", product.getEfficacy());
-            intent.putExtra("image", product.getImage());  // 이미지 파일명 전달
+            intent.putExtra("image", product.getImage());
             v.getContext().startActivity(intent);
         });
     }
@@ -83,4 +88,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public int getItemCount() {
         return localDataSet.size();
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 }

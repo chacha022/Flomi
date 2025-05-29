@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import com.example.flomi.R;
 
+import java.util.Date;
+
 @Entity(tableName = "product")
 public class Product {
     @PrimaryKey(autoGenerate = true)
@@ -21,6 +23,8 @@ public class Product {
 
     public String content;
     public String image;
+
+    public Date createdAt;  // 추가된 필드
 
 
     // 게터 추가 (필요한 필드만)

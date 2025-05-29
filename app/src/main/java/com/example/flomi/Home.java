@@ -20,8 +20,15 @@ import com.example.flomi.data.DiaryEntity;
 import com.example.flomi.data.Product;
 import com.example.flomi.data.SurveyResponse;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
 
@@ -57,41 +64,68 @@ public class Home extends AppCompatActivity {
         diaryImageView = findViewById(R.id.imageView2);
 
         // 1) 제품 추천 ViewPager 불러오기 (AsyncTask)
-        new AsyncTask<Void, Void, DiaryEntity>() {
+        viewPager = findViewById(R.id.viewPager);
+
+        new AsyncTask<Void, Void, Product>() {
             @Override
-            protected DiaryEntity doInBackground(Void... voids) {
-                return db.diaryDao().getLatestDiary();  // 최근 일기 1개 가져오기
+            protected Product doInBackground(Void... voids) {
+                // createdAt 가장 큰 최신 상품 가져오기
+                return db.productDao().getLatestProduct();
             }
 
             @Override
-            protected void onPostExecute(DiaryEntity latestDiary) {
-                if (latestDiary != null) {
-                    // ID를 날짜 위치에 보여주기
-                    dateTextView.setText(String.valueOf(latestDiary.getId()));
+            protected void onPostExecute(Product product) {
+                if (product != null) {
+                    ImageView itemImage = findViewById(R.id.item_image);
+                    TextView company = findViewById(R.id.company);
+                    TextView item = findViewById(R.id.item);
+                    TextView efficacy = findViewById(R.id.efficacy);
 
-                    // 제목과 내용을 표시
-                    useItemTextView.setText(latestDiary.getTitle());
-                    contextTextView.setText(latestDiary.getContent());
-
-                    // 이미지 URI를 ImageView에 적용
-                    String uriString = latestDiary.getImageUri();
-                    if (uriString != null && !uriString.isEmpty()) {
-                        Uri imageUri = Uri.parse(uriString);
-                        diaryImageView.setImageURI(imageUri);
+                    // 이미지 URI가 있다면 세팅
+                    String imageName = product.getImage(); // e.g. "sample.png"
+                    if (imageName != null && !imageName.isEmpty()) {
+                        AssetManager assetManager = getAssets();
+                        try (InputStream is = assetManager.open("picture/" + imageName)) {
+                            Bitmap bitmap = BitmapFactory.decodeStream(is);
+                            itemImage.setImageBitmap(bitmap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            itemImage.setImageResource(R.drawable.light);  // 기본 이미지
+                        }
                     } else {
-                        // 이미지가 없을 경우 기본 이미지 설정
-                        diaryImageView.setImageResource(R.drawable.light);
+                        itemImage.setImageResource(R.drawable.light);
                     }
-                } else {
-                    // 데이터가 없을 경우 기본 메시지 설정
-                    dateTextView.setText("N/A");
-                    useItemTextView.setText("작성된 제목 없음");
-                    contextTextView.setText("작성된 내용 없음");
-                    diaryImageView.setImageResource(R.drawable.light);
+
+                    company.setText(product.getCompany());
+                    item.setText(product.getName());
+                    efficacy.setText(product.getEfficacy());
                 }
             }
         }.execute();
 
+        new AsyncTask<Void, Void, List<Product>>() {
+            @Override
+            protected List<Product> doInBackground(Void... voids) {
+                SurveyResponse survey = db.surveyDao().getLatestResponse();
+                if (survey == null) return null;
+
+                String skinType = survey.skin_type;
+                return db.productDao().getTop5ProductsBySkinType(skinType);
+            }
+
+            @Override
+            protected void onPostExecute(List<Product> result) {
+                if (result != null && !result.isEmpty()) {
+                    recommendedProducts = result;
+                } else {
+                    recommendedProducts = new ArrayList<>();
+                    // 기본 상품 추가 가능
+                }
+
+                ImagePagerAdapter adapter = new ImagePagerAdapter(Home.this, recommendedProducts, db);
+                viewPager.setAdapter(adapter);
+            }
+        }.execute();
         // 2) 최신 다이어리 불러와서 뷰에 표시 (AsyncTask)
         new AsyncTask<Void, Void, DiaryEntity>() {
             @Override
@@ -105,13 +139,23 @@ public class Home extends AppCompatActivity {
                     dateTextView.setText(String.valueOf(latestDiary.getId()));
                     useItemTextView.setText(latestDiary.getTitle());
                     contextTextView.setText(latestDiary.getContent());
+
+                    String uriString = latestDiary.getImageUri();
+                    if (uriString != null && !uriString.isEmpty()) {
+                        Uri imageUri = Uri.parse(uriString);
+                        diaryImageView.setImageURI(imageUri);
+                    } else {
+                        diaryImageView.setImageResource(R.drawable.light);
+                    }
                 } else {
                     dateTextView.setText("작성된 다이어리가 없습니다.");
                     useItemTextView.setText("");
                     contextTextView.setText("");
+                    diaryImageView.setImageResource(R.drawable.light);
                 }
             }
         }.execute();
+
 
         // 하단 메뉴 버튼 이벤트
         ImageButton category = findViewById(R.id.category);
@@ -142,6 +186,23 @@ public class Home extends AppCompatActivity {
                     startActivity(intent);
                 });
             }).start();
+        });
+
+        ImageButton goProductBtn = findViewById(R.id.go_product);
+
+        goProductBtn.setOnClickListener(view -> {
+            if (recommendedProducts != null && !recommendedProducts.isEmpty()) {
+                Product latestProduct = recommendedProducts.get(0);
+
+                Intent intent = new Intent(Home.this, Detail.class);
+                intent.putExtra("company", latestProduct.getCompany());
+                intent.putExtra("name", latestProduct.getName());
+                intent.putExtra("efficacy", latestProduct.getEfficacy());
+                intent.putExtra("image", latestProduct.getImage()); // 이미지 파일명만 전달
+                startActivity(intent);
+            } else {
+                Toast.makeText(Home.this, "추천 상품이 없습니다.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
