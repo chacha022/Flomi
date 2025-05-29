@@ -1,9 +1,11 @@
 package com.example.flomi;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -29,6 +31,8 @@ public class Home extends AppCompatActivity {
 
     // 다이어리 뷰 변수 선언
     private TextView dateTextView, useItemTextView, contextTextView;
+    private ImageView diaryImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,29 +54,41 @@ public class Home extends AppCompatActivity {
         dateTextView = findViewById(R.id.date);
         useItemTextView = findViewById(R.id.use_item);
         contextTextView = findViewById(R.id.context);
+        diaryImageView = findViewById(R.id.imageView2);
 
         // 1) 제품 추천 ViewPager 불러오기 (AsyncTask)
-        new AsyncTask<Void, Void, List<Product>>() {
+        new AsyncTask<Void, Void, DiaryEntity>() {
             @Override
-            protected List<Product> doInBackground(Void... voids) {
-                SurveyResponse survey = db.surveyDao().getLatestResponse();
-                if (survey == null) return null;
-
-                String skinType = survey.skin_type;
-                return db.productDao().getTop5ProductsBySkinType(skinType);
+            protected DiaryEntity doInBackground(Void... voids) {
+                return db.diaryDao().getLatestDiary();  // 최근 일기 1개 가져오기
             }
 
             @Override
-            protected void onPostExecute(List<Product> result) {
-                if (result != null && !result.isEmpty()) {
-                    recommendedProducts = result;
-                } else {
-                    recommendedProducts = new ArrayList<>();
-                    // 기본 상품 추가 가능
-                }
+            protected void onPostExecute(DiaryEntity latestDiary) {
+                if (latestDiary != null) {
+                    // ID를 날짜 위치에 보여주기
+                    dateTextView.setText(String.valueOf(latestDiary.getId()));
 
-                ImagePagerAdapter adapter = new ImagePagerAdapter(Home.this, recommendedProducts);
-                viewPager.setAdapter(adapter);
+                    // 제목과 내용을 표시
+                    useItemTextView.setText(latestDiary.getTitle());
+                    contextTextView.setText(latestDiary.getContent());
+
+                    // 이미지 URI를 ImageView에 적용
+                    String uriString = latestDiary.getImageUri();
+                    if (uriString != null && !uriString.isEmpty()) {
+                        Uri imageUri = Uri.parse(uriString);
+                        diaryImageView.setImageURI(imageUri);
+                    } else {
+                        // 이미지가 없을 경우 기본 이미지 설정
+                        diaryImageView.setImageResource(R.drawable.light);
+                    }
+                } else {
+                    // 데이터가 없을 경우 기본 메시지 설정
+                    dateTextView.setText("N/A");
+                    useItemTextView.setText("작성된 제목 없음");
+                    contextTextView.setText("작성된 내용 없음");
+                    diaryImageView.setImageResource(R.drawable.light);
+                }
             }
         }.execute();
 
