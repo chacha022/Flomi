@@ -1,11 +1,9 @@
 package com.example.flomi;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -16,22 +14,21 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.flomi.data.AppDatabase;
-import com.example.flomi.data.DiaryDao;
 import com.example.flomi.data.DiaryEntity;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.example.flomi.data.ProductDao;
 import com.example.flomi.data.Product;
 import com.example.flomi.data.SurveyResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Home extends AppCompatActivity {
 
     private AppDatabase db;
     private ViewPager2 viewPager;
-    private List<Product> recommendedProducts; // imageFileNames 대신 사용
+    private List<Product> recommendedProducts;
+
+    // 다이어리 뷰 변수 선언
+    private TextView dateTextView, useItemTextView, contextTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +46,12 @@ public class Home extends AppCompatActivity {
 
         viewPager = findViewById(R.id.viewPager);
 
+        // 다이어리 텍스트뷰 연결
+        dateTextView = findViewById(R.id.date);
+        useItemTextView = findViewById(R.id.use_item);
+        contextTextView = findViewById(R.id.context);
+
+        // 1) 제품 추천 ViewPager 불러오기 (AsyncTask)
         new AsyncTask<Void, Void, List<Product>>() {
             @Override
             protected List<Product> doInBackground(Void... voids) {
@@ -73,7 +76,28 @@ public class Home extends AppCompatActivity {
             }
         }.execute();
 
+        // 2) 최신 다이어리 불러와서 뷰에 표시 (AsyncTask)
+        new AsyncTask<Void, Void, DiaryEntity>() {
+            @Override
+            protected DiaryEntity doInBackground(Void... voids) {
+                return db.diaryDao().getLatestDiary();
+            }
 
+            @Override
+            protected void onPostExecute(DiaryEntity latestDiary) {
+                if (latestDiary != null) {
+                    dateTextView.setText(String.valueOf(latestDiary.getId()));
+                    useItemTextView.setText(latestDiary.getTitle());
+                    contextTextView.setText(latestDiary.getContent());
+                } else {
+                    dateTextView.setText("작성된 다이어리가 없습니다.");
+                    useItemTextView.setText("");
+                    contextTextView.setText("");
+                }
+            }
+        }.execute();
+
+        // 하단 메뉴 버튼 이벤트
         ImageButton category = findViewById(R.id.category);
         category.setOnClickListener(view -> {
             Intent intent = new Intent(Home.this, Category.class);
