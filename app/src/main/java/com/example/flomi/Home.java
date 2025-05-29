@@ -28,6 +28,7 @@ import java.util.List;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
 
@@ -185,6 +186,23 @@ public class Home extends AppCompatActivity {
                     startActivity(intent);
                 });
             }).start();
+        });
+
+        ImageButton goProductBtn = findViewById(R.id.go_product);
+
+        goProductBtn.setOnClickListener(view -> {
+            if (recommendedProducts != null && !recommendedProducts.isEmpty()) {
+                Product latestProduct = recommendedProducts.get(0);
+
+                Intent intent = new Intent(Home.this, Detail.class);
+                intent.putExtra("company", latestProduct.getCompany());
+                intent.putExtra("name", latestProduct.getName());
+                intent.putExtra("efficacy", latestProduct.getEfficacy());
+                intent.putExtra("image", latestProduct.getImage()); // 이미지 파일명만 전달
+                startActivity(intent);
+            } else {
+                Toast.makeText(Home.this, "추천 상품이 없습니다.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
