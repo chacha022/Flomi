@@ -37,6 +37,9 @@ public interface ProductDao {
     @Query("SELECT * FROM product WHERE name LIKE '%' || :keyword || '%' OR company LIKE '%' || :keyword || '%'")
     List<Product> searchByNameOrCompany(String keyword);
 
+    @Query("SELECT * FROM product WHERE isLiked = 1")
+    List<Product> getLikedProducts();
+
 
 }
 

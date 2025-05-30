@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,6 +70,13 @@ public class Survey1 extends AppCompatActivity {
             String yearText = birthYearEditText.getText().toString();
             if (!yearText.isEmpty()) {
                 selectedYear = Integer.parseInt(yearText);
+                if (selectedYear < 1960 || selectedYear > 2025) {
+                    Toast.makeText(Survey1.this, "1960년부터 2025년 사이로 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return; // → 조건 안 맞으면 넘어가지 않음
+                }
+            } else {
+                Toast.makeText(Survey1.this, "출생년도를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                return;
             }
 
             Intent intent = new Intent(Survey1.this, Survey2.class);
@@ -76,5 +84,6 @@ public class Survey1 extends AppCompatActivity {
             intent.putExtra("birthYear", selectedYear);
             startActivity(intent);
         });
+
     }
 }

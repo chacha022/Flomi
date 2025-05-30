@@ -15,8 +15,12 @@ import com.example.flomi.data.ProductDao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 public class Detail extends AppCompatActivity {
+
+    private Product product;       // 멤버 변수
+    private ProductDao productDao; // 멤버 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +29,6 @@ public class Detail extends AppCompatActivity {
 
         // UI 연결
         ImageButton back = findViewById(R.id.backButton);
-        Button like = findViewById(R.id.like);
         TextView tvCompany = findViewById(R.id.company);
         TextView tvProduct = findViewById(R.id.product);
         TextView tvCompany2 = findViewById(R.id.company2);
@@ -34,40 +37,66 @@ public class Detail extends AppCompatActivity {
         TextView tvContent = findViewById(R.id.content);
         ImageView ivImage = findViewById(R.id.imageView);
         TextView textView = findViewById(R.id.textView);
+        ToggleButton likeToggleButton = findViewById(R.id.like);
+        ImageView imagecontent = findViewById(R.id.image_content);
 
-        // ✅ Intent로 id만 전달받음
+        // DB, DAO 초기화 (멤버 변수에 할당)
+        AppDatabase db = AppDatabase.getInstance(this);
+        productDao = db.productDao();
+
         int productId = getIntent().getIntExtra("id", -1);
 
         if (productId != -1) {
-            // Room 데이터베이스에서 제품 정보 불러오기
-            AppDatabase db = AppDatabase.getInstance(this);
-            ProductDao productDao = db.productDao();
 
             new Thread(() -> {
-                Product product = productDao.getProductById(productId);
+                // 멤버 변수 product에 할당
+                product = productDao.getProductById(productId);
 
                 runOnUiThread(() -> {
-                    if (product != null) {
-                        tvCompany.setText(product.getCompany() + " >");
-                        tvCompany2.setText(product.getCompany());
-                        tvProduct.setText(product.getName());
-                        tvContent.setText(product.getContent());
-                        tvCompany_Count.setText(product.getCompany_productCount());
-                        String combinedText =
-                                "고민: " + product.getConcerns() + "\n"
-                                + "효능: " + product.getEfficacy();
-                        tvExplain.setText(combinedText);
+                    if (productId != -1) {
+                        new Thread(() -> {
+                            product = productDao.getProductById(productId);
+                            if (product != null) {
+                                // createdAt 업데이트 (예: 현재 시간으로)
+                                product.setCreatedAt(new Date());
+                                productDao.updateProduct(product);
+                            }
 
-                        // 이미지 로딩 (assets/picture/ 폴더 기준)
-                        try {
-                            InputStream is = getAssets().open("picture/" + product.getImage());
-                            Bitmap bitmap = BitmapFactory.decodeStream(is);
-                            ivImage.setImageBitmap(bitmap);
-                            is.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            ivImage.setImageResource(R.drawable.light);  // 기본 이미지
-                        }
+                            runOnUiThread(() -> {
+                                if (product != null) {
+                                    // 기존 UI 업데이트 코드
+                                    tvCompany.setText(product.getCompany() + " >");
+                                    tvCompany2.setText(product.getCompany());
+                                    tvProduct.setText(product.getName());
+                                    tvContent.setText(product.getContent());
+                                    tvCompany_Count.setText(product.getCompany_productCount());
+                                    String combinedText =
+                                            "고민: " + product.getConcerns() + "\n"
+                                                    + "효능: " + product.getEfficacy();
+                                    tvExplain.setText(combinedText);
+                                    likeToggleButton.setChecked(product.isLiked());
+
+                                    try {
+                                        InputStream is = getAssets().open("picture/" + product.getImage());
+                                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+                                        ivImage.setImageBitmap(bitmap);
+                                        is.close();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                        ivImage.setImageResource(R.drawable.light);
+                                    }
+                                    try {
+                                        InputStream is2 = getAssets().open("picture/" + product.getImage2());
+                                        Bitmap bitmap2 = BitmapFactory.decodeStream(is2);
+                                        imagecontent.setImageBitmap(bitmap2);
+                                        is2.close();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                        imagecontent.setImageResource(R.drawable.light);
+                                    }
+                                }
+                            });
+                        }).start();
                     }
                 });
             }).start();
@@ -87,11 +116,6 @@ public class Detail extends AppCompatActivity {
             startActivity(h);
         });
 
-        // 찜하기 버튼
-        like.setOnClickListener(v -> {
-            v.setSelected(!v.isSelected());
-        });
-
         // 텍스트 접기/펼치기
         textView.setOnClickListener(new View.OnClickListener() {
             boolean expanded = false;
@@ -106,6 +130,16 @@ public class Detail extends AppCompatActivity {
                 }
                 expanded = !expanded;
             }
+        });
+
+        likeToggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (product == null) return;
+
+            product.isLiked = isChecked;
+
+            new Thread(() -> {
+                productDao.updateProduct(product);
+            }).start();
         });
     }
 }
