@@ -26,6 +26,9 @@ public class Product {
 
     public Date createdAt;  // 추가된 필드
 
+    // 찜하기 상태 추가 (기본값 false)
+    public boolean isLiked = false;
+
 
     // 게터 추가 (필요한 필드만)
     public int getProductId() {
@@ -47,6 +50,24 @@ public class Product {
         } catch (NumberFormatException e) {
             return R.drawable.light; // 기본 이미지
         }
+    }
+
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    // 게터/세터 추가 (필요 시)
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.isLiked = liked;
     }
 
 }
