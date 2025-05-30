@@ -33,5 +33,10 @@ public interface ProductDao {
 
     @Query("SELECT * FROM product ORDER BY createdAt DESC LIMIT 1")
     Product getLatestProduct();
+
+    @Query("SELECT * FROM product WHERE name LIKE '%' || :keyword || '%' OR company LIKE '%' || :keyword || '%'")
+    List<Product> searchByNameOrCompany(String keyword);
+
+
 }
 

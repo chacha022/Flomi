@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- 카메라 사용 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <!-- Android 13 (API 33) 이상에서 갤러리 이미지 접근 -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-
-    <!-- Android 12 이하 기기에서 외부 저장소 접근 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- Android 13 (API 33) 이상에서 갤러리 이미지 접근 -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" /> <!-- Android 12 이하 기기에서 외부 저장소 접근 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -23,8 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Flomi"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".SearchList"
+            android:exported="false" />
         <!-- ✅ FileProvider 설정 여기! -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -35,6 +30,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <activity
             android:name=".LikeList"
             android:exported="false" />
