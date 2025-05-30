@@ -61,6 +61,7 @@
             android:alpha="0.4"
             />
 
+
     <RelativeLayout
         android:id="@+id/some_id2"
         android:layout_width="match_parent"
@@ -91,20 +92,32 @@
             />
     </RelativeLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:layout_marginTop="100dp"
             android:background="#eaeaeaea"
+            android:scaleType="fitCenter"
             android:tooltipText="광고 상품으로 이동" />
 
     <RelativeLayout
         android:id="@+id/some_id3"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginTop="20dp"
         android:clipToOutline="true"
-        android:layout_marginTop="350dp"
         android:layout_centerHorizontal="true"
         >
 
@@ -183,8 +196,8 @@
             android:id="@+id/some_id4"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginTop="20dp"
             android:clipToOutline="true"
-            android:layout_marginTop="550dp"
             android:layout_centerHorizontal="true">
 
 
@@ -256,7 +269,8 @@
             </RelativeLayout>
 
         </RelativeLayout>
-
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 
 </LinearLayout>
