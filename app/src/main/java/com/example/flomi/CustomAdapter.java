@@ -96,4 +96,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         this.listener = listener;
     }
 
+
+
 }

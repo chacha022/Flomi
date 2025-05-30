@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -205,6 +206,19 @@ public class Home extends AppCompatActivity {
                     }
                 });
             }).start();
+        });
+
+        //검색기능
+        EditText editText = findViewById(R.id.editTextText);
+        ImageButton searchButton = findViewById(R.id.searchButton); // ID 지정 필요
+
+        searchButton.setOnClickListener(v -> {
+            String keyword = editText.getText().toString().trim();
+            if (!keyword.isEmpty()) {
+                Intent intent = new Intent(Home.this, SearchList.class);
+                intent.putExtra("search_keyword", keyword);
+                startActivity(intent);
+            }
         });
 
     }

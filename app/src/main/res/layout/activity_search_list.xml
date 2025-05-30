@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemList"
+    tools:context=".SearchList"
     android:orientation="horizontal"
     >
 
@@ -32,20 +32,10 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/baseline_arrow_back_24" />
 
-
-            <ImageButton
-                android:id="@+id/likeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:layout_margin="15dp"
-                android:layout_alignParentEnd="true"
-                />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="상품 목록"
+                android:text="검색 목록"
                 android:textSize="30dp"
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"
