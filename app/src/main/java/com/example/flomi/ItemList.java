@@ -68,7 +68,9 @@ public class ItemList extends AppCompatActivity {
 
         like.setOnClickListener(view -> {
             Intent intent = new Intent(ItemList.this, LikeList.class);
+            intent.putExtra("isLiked", true); // ★ 이 줄 꼭 필요!
             startActivity(intent);
         });
+
     }
 }

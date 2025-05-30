@@ -38,6 +38,7 @@ public class Detail extends AppCompatActivity {
         ImageView ivImage = findViewById(R.id.imageView);
         TextView textView = findViewById(R.id.textView);
         ToggleButton likeToggleButton = findViewById(R.id.like);
+        ImageView imagecontent = findViewById(R.id.image_content);
 
         // DB, DAO 초기화 (멤버 변수에 할당)
         AppDatabase db = AppDatabase.getInstance(this);
@@ -83,6 +84,15 @@ public class Detail extends AppCompatActivity {
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                         ivImage.setImageResource(R.drawable.light);
+                                    }
+                                    try {
+                                        InputStream is2 = getAssets().open("picture/" + product.getImage2());
+                                        Bitmap bitmap2 = BitmapFactory.decodeStream(is2);
+                                        imagecontent.setImageBitmap(bitmap2);
+                                        is2.close();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                        imagecontent.setImageResource(R.drawable.light);
                                     }
                                 }
                             });

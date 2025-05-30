@@ -18,6 +18,7 @@ import com.example.flomi.data.AppDatabase;
 import com.example.flomi.data.Product;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class LikeList extends AppCompatActivity {
 
@@ -33,7 +34,19 @@ public class LikeList extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_like_list);
 
-        isLiked = getIntent().getBooleanExtra("isLiked", false); // 인텐트에서 값 받기
+        // Intent에서 값 받아오기
+        isLiked = getIntent().getBooleanExtra("isLiked", false);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        db = AppDatabase.getInstance(this);
+
+        if (isLiked) {
+            showLikedItems();  // 메서드 호출
+        } else {
+            findViewById(R.id.emptyText).setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -44,33 +57,32 @@ public class LikeList extends AppCompatActivity {
 
         ImageButton back = findViewById(R.id.backButton);
 
-        back.setOnClickListener(new View.OnClickListener(){
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 //화면 전환
                 Intent intent = new Intent(LikeList.this, ItemList.class);
                 startActivity(intent);
             }
         });
-
-        // RecyclerView 초기화
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        db = AppDatabase.getInstance(this);
-
-        if (isLiked) {
-            showLikedItems();
-        } else {
-            // 예: 빈 화면을 보여주거나 안내 메시지
-            TextView emptyText = findViewById(R.id.emptyText);
-            emptyText.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-        }
     }
-
+    // onCreate 밖에 별도로 메서드 정의
     private void showLikedItems() {
-        List<Product> likedProducts = db.productDao().getLikedProducts(); // 좋아요한 제품만 가져오기
-        adapter = new CustomAdapter(likedProducts);
-        recyclerView.setAdapter(adapter);
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<Product> likedProducts = db.productDao().getLikedProducts();
+
+            runOnUiThread(() -> {
+                if (likedProducts == null || likedProducts.isEmpty()) {
+                    findViewById(R.id.emptyText).setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    adapter = new CustomAdapter(likedProducts);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    findViewById(R.id.emptyText).setVisibility(View.GONE);
+                }
+            });
+        });
     }
 }
+
