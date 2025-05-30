@@ -71,10 +71,16 @@
                 android:id="@+id/survey1_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button"
+                android:background="@drawable/radio_button_selector"
                 android:layout_marginTop="220dp"
                 android:layout_marginLeft="30dp"
                 android:text="여성"
+                android:button="@null"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="30dp"
+                android:textColor="@color/black"
+
                 />
 
 
@@ -82,10 +88,15 @@
                 android:id="@+id/survey1_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button"
+                android:background="@drawable/radio_button_selector"
                 android:layout_marginTop="220dp"
                 android:layout_marginLeft="30dp"
                 android:text="남성"
+                android:button="@null"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="30dp"
+                android:textColor="@color/black"
                 />
         </RadioGroup>
 
@@ -107,11 +118,12 @@
             android:layout_marginTop="410dp"
             android:layout_marginLeft="30dp"
             android:background="@drawable/text"
-            android:ems="10"
+            android:ems="4"
             android:inputType="number"
-            android:hint="예 : 2000"
-            android:paddingStart="16dp"
-            />
+            android:hint="예: 2000"
+            android:maxLength="4"
+            android:paddingStart="16dp" />
+
 
     </RelativeLayout>
 
