@@ -1,4 +1,4 @@
-package com.example.flomi;
+package com.example.flomi.data;
 
 public class DiaryItem {
     private int id;  // DB PK

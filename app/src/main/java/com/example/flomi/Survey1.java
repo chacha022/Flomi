@@ -67,23 +67,32 @@ public class Survey1 extends AppCompatActivity {
 
         ImageButton next = findViewById(R.id.survey1_btn_next1);
         next.setOnClickListener(view -> {
+            // 성별 선택 여부 확인
+            if (selectedGender.isEmpty()) {
+                Toast.makeText(Survey1.this, "성별을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // 출생년도 입력 여부 및 유효성 검사
             String yearText = birthYearEditText.getText().toString();
-            if (!yearText.isEmpty()) {
-                selectedYear = Integer.parseInt(yearText);
-                if (selectedYear < 1960 || selectedYear > 2025) {
-                    Toast.makeText(Survey1.this, "1960년부터 2025년 사이로 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    return; // → 조건 안 맞으면 넘어가지 않음
-                }
-            } else {
+            if (yearText.isEmpty()) {
                 Toast.makeText(Survey1.this, "출생년도를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            selectedYear = Integer.parseInt(yearText);
+            if (selectedYear < 1960 || selectedYear > 2025) {
+                Toast.makeText(Survey1.this, "1960년부터 2025년 사이로 입력해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // 유효하면 다음 페이지로 이동
             Intent intent = new Intent(Survey1.this, Survey2.class);
             intent.putExtra("gender", selectedGender);
             intent.putExtra("birthYear", selectedYear);
             startActivity(intent);
         });
+
 
     }
 }

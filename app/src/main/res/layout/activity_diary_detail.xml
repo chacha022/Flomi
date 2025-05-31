@@ -100,9 +100,8 @@
                 android:id="@+id/diary_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/text"
                 android:scaleType="fitCenter"
-                app:srcCompat="@android:drawable/ic_menu_add" />
+                 />
 
 
             <TextView

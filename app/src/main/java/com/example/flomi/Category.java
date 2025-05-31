@@ -70,10 +70,21 @@ public class Category extends AppCompatActivity {
         // 찾기 버튼
         Button find = findViewById(R.id.find);
         find.setOnClickListener(view -> {
-            saveChecksToDatabase();  // 먼저 DB에 저장
+            String checkedStr = getCheckedConditions();
+            if (checkedStr.isEmpty()) {
+                Toast.makeText(this, "하나 이상의 항목을 선택하세요.", Toast.LENGTH_SHORT).show();
+                return;  // 아무 체크도 안 했으면 중단
+            }
+
+            // DB 저장
+            CategoryEntity categoryEntity = new CategoryEntity(checkedStr);
+            new Thread(() -> db.categoryDao().insert(categoryEntity)).start();
+
+            // ItemList로 이동
             Intent intent = new Intent(Category.this, ItemList.class);
             startActivity(intent);
         });
+
 
         // 홈 버튼
         ImageButton home = findViewById(R.id.home);
@@ -115,21 +126,6 @@ public class Category extends AppCompatActivity {
         );
 
 
-    }
-
-
-    private void saveChecksToDatabase() {
-        String checkedStr = getCheckedConditions();
-        if (checkedStr.isEmpty()) {
-            Toast.makeText(this, "하나 이상의 항목을 선택하세요.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        CategoryEntity categoryEntity = new CategoryEntity(checkedStr);
-
-        new Thread(() -> {
-            db.categoryDao().insert(categoryEntity);
-        }).start();
     }
 
 

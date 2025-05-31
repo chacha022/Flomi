@@ -19,12 +19,22 @@
         android:layout_height="match_parent"
         android:clipToOutline="true">
 
-        <RelativeLayout
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/baseline_arrow_back_24" />
+
+        <LinearLayout
             android:id="@+id/some_id2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:orientation="vertical"
+
             >
             <TextView
                 android:id="@+id/diary_title"
@@ -35,7 +45,7 @@
                 android:text="나의 피부 일기"
                 android:textSize="30dp"
                 android:textStyle="bold"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 />
 
 
@@ -44,11 +54,10 @@
                 android:id="@+id/diary_middleTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="90dp"
                 android:textColor="@color/deep_purple"
                 android:text="나에게 맞는 화장품 성분을 찾아보세요!"
                 android:textSize="20dp"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 />
 
 
@@ -57,7 +66,7 @@
                 android:id="@+id/diary_query1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="170dp"
+                android:layout_marginTop="50dp"
                 android:textColor="@color/deep_purple"
                 android:text="어떤 제품을 사용하셨나요?"
                 android:textSize="20dp" />
@@ -67,7 +76,7 @@
                 android:id="@+id/diary_answer1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="210dp"
+                android:layout_marginTop="10dp"
                 android:hint="예) ○○브랜드 크림"
                 android:background="@drawable/border"
                 android:padding="16dp"
@@ -79,50 +88,43 @@
                 android:id="@+id/diary_query2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="310dp"
+                android:layout_marginTop="50dp"
                 android:textColor="@color/deep_purple"
                 android:text="오늘 피부 상태는 어땠나요?"
                 android:textSize="20dp" />
 
             <ImageButton
                 android:id="@+id/diary_pick"
-                android:layout_width="245dp"
+                android:layout_width="250dp"
                 android:layout_height="125dp"
-                android:layout_marginTop="340dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
-                android:background="@drawable/text"
-                app:srcCompat="@android:drawable/ic_menu_add" />
+                android:background="@drawable/radio_button_unchecked"
+                app:srcCompat="@android:drawable/ic_menu_camera" />
 
 
             <MultiAutoCompleteTextView
                 android:id="@+id/diary_answer2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="470dp"
+                android:layout_marginTop="10dp"
                 android:hint="예) \n: 바르자마자 따가웠다.\n: 4시간이 지나 트러블이 생겼다."
                 android:background="@drawable/border"
                 android:padding="16dp"
                 android:inputType="textMultiLine|text"
                 />
 
-            <ImageButton
-                android:id="@+id/backButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/baseline_arrow_back_24" />
+
 
             <Button
                 android:id="@+id/save"
                 android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:text="저장"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="50dp"
                 />
-        </RelativeLayout>
+        </LinearLayout>
 
 
 

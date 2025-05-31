@@ -33,8 +33,20 @@
                 android:text="나의 피부 일기 목록"
                 android:textSize="30dp"
                 android:textStyle="bold"
-                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="50dp"
                 />
+
+            <Button
+                android:id="@+id/write"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="글쓰기"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="100dp"
+                />
+
             <View
                 android:id="@+id/rectangle"
                 android:layout_width="match_parent"
@@ -53,16 +65,7 @@
                 android:layout_marginTop="80dp"
                 android:layout_marginBottom="55dp"/>
 
-            <Button
-                android:id="@+id/write"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:text="글쓰기"
-                android:layout_marginTop="80dp"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="100dp"
-                />
+
         </RelativeLayout>
 
         <View
