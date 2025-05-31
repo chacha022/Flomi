@@ -26,7 +26,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "flome-db")
+                            AppDatabase.class, "flomi-db")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback(context))
                     .build();

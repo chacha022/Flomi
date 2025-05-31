@@ -19,6 +19,12 @@
         android:layout_height="match_parent"
         android:clipToOutline="true">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
         <RelativeLayout
             android:id="@+id/some_id2"
             android:layout_width="match_parent"
@@ -33,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:layout_marginLeft="40dp"
+                android:textColor="@color/deep_purple"
                 android:text="0."
                 android:textSize="30dp"
                 android:textStyle="bold"
@@ -43,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
+                android:textColor="@color/deep_purple"
                 android:text="나의 피부 일기"
                 android:textSize="30dp"
                 android:textStyle="bold"
@@ -58,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="170dp"
                 android:text="사용한 제품"
+                android:textColor="@color/deep_purple"
                 android:textSize="20dp" />
 
             <TextView
@@ -76,40 +85,59 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="310dp"
+                android:textColor="@color/deep_purple"
                 android:text="당시 피부 상태"
                 android:textSize="20dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="340dp">
+
+                >
             <ImageView
                 android:id="@+id/diary_image"
-                android:layout_width="245dp"
-                android:layout_height="125dp"
-                android:layout_marginTop="340dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/text"
+                android:scaleType="fitCenter"
                 app:srcCompat="@android:drawable/ic_menu_add" />
+
 
             <TextView
                 android:id="@+id/diary_content2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="470dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/border"
                 android:padding="16dp"
                 android:inputType="textMultiLine|text"
                 />
 
-            <Button
-                android:id="@+id/list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="목록"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="50dp"
-                />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- 오른쪽 아래 버튼 -->
+                    <Button
+                        android:id="@+id/list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="목록"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="16dp" />
+                </FrameLayout>
+            </LinearLayout>
+
+
+
+
         </RelativeLayout>
 
 
-
+        </ScrollView>
     </RelativeLayout>
+
 
 </LinearLayout>
