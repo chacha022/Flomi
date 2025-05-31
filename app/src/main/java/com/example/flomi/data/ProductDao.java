@@ -42,6 +42,10 @@ public interface ProductDao {
     @Query("SELECT * FROM product WHERE isLiked = 1")
     List<Product> getLikedProducts();
 
-
+    @Query("SELECT * FROM product ORDER BY " +
+            "CASE WHEN skinTypes LIKE '%모든 피부 타입%' THEN 0 " +
+            "WHEN skinTypes LIKE '%' || :skinType || '%' THEN 1 " +
+            "ELSE 2 END")
+    List<Product> getProductsSortedBySkinTypes(String skinType);
 }
 

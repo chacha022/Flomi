@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -27,6 +28,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.flomi.data.AppDatabase;
+import com.example.flomi.data.CategoryEntity;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -36,7 +40,9 @@ public class Category extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_CAMERA_PERMISSION = 100;
     private ActivityResultLauncher<Intent> cameraLauncher;
+    private AppDatabase db;
     private Uri photoURI;
+    private CheckBox check1, check2, check3, check4, check5, check6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +57,20 @@ public class Category extends AppCompatActivity {
             return insets;
         });
 
+        db = AppDatabase.getInstance(this);
+
+        // 체크박스 초기화
+        check1 = findViewById(R.id.check1);
+        check2 = findViewById(R.id.check2);
+        check3 = findViewById(R.id.check3);
+        check4 = findViewById(R.id.check4);
+        check5 = findViewById(R.id.check5);
+        check6 = findViewById(R.id.check6);
+
         // 찾기 버튼
         Button find = findViewById(R.id.find);
         find.setOnClickListener(view -> {
+            saveChecksToDatabase();  // 먼저 DB에 저장
             Intent intent = new Intent(Category.this, ItemList.class);
             startActivity(intent);
         });
@@ -84,19 +101,49 @@ public class Category extends AppCompatActivity {
             }
         });
 
+        // 카메라 촬영 완료 후 저장 코드
         cameraLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Toast.makeText(this, "사진 촬영 완료", Toast.LENGTH_SHORT).show();
 
-                        // 선언 없이 바로 findViewById() 호출
                         ((ImageButton) findViewById(R.id.camera)).setImageURI(photoURI);
+
                     }
                 }
         );
 
 
+    }
+
+
+    private void saveChecksToDatabase() {
+        String checkedStr = getCheckedConditions();
+        if (checkedStr.isEmpty()) {
+            Toast.makeText(this, "하나 이상의 항목을 선택하세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        CategoryEntity categoryEntity = new CategoryEntity(checkedStr);
+
+        new Thread(() -> {
+            db.categoryDao().insert(categoryEntity);
+        }).start();
+    }
+
+
+    private String getCheckedConditions() {
+        StringBuilder sb = new StringBuilder();
+        if (check1.isChecked()) sb.append(check1.getText().toString()).append(",");
+        if (check2.isChecked()) sb.append(check2.getText().toString()).append(",");
+        if (check3.isChecked()) sb.append(check3.getText().toString()).append(",");
+        if (check4.isChecked()) sb.append(check4.getText().toString()).append(",");
+        if (check5.isChecked()) sb.append(check5.getText().toString()).append(",");
+        if (check6.isChecked()) sb.append(check6.getText().toString()).append(",");
+
+        if (sb.length() > 0) sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 
     private void dispatchTakePictureIntent() {
