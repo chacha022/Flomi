@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
+                android:textColor="@color/deep_purple"
                 android:text="나의 피부 일기"
                 android:textSize="30dp"
                 android:textStyle="bold"
@@ -44,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="90dp"
+                android:textColor="@color/deep_purple"
                 android:text="나에게 맞는 화장품 성분을 찾아보세요!"
                 android:textSize="20dp"
                 android:layout_centerHorizontal="true"
@@ -56,6 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="170dp"
+                android:textColor="@color/deep_purple"
                 android:text="어떤 제품을 사용하셨나요?"
                 android:textSize="20dp" />
             
@@ -77,6 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="310dp"
+                android:textColor="@color/deep_purple"
                 android:text="오늘 피부 상태는 어땠나요?"
                 android:textSize="20dp" />
 

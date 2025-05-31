@@ -13,6 +13,8 @@ public interface ProductDao {
     @Insert
     void insertProduct(Product product);
 
+    @Query("SELECT COUNT(*) FROM product") // 테이블 이름에 맞게 수정
+    int getCount();
     @Insert
     void insertAll(List<Product> products);  // 추가
 
