@@ -58,6 +58,7 @@ public class Survey4 extends AppCompatActivity {
         ImageButton next = findViewById(R.id.survey4_btn_next1);
         next.setOnClickListener(view -> {
             Intent intent = new Intent(Survey4.this, Home.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
     }

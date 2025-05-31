@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flomi.data.AppDatabase;
 import com.example.flomi.data.DiaryEntity;
+import com.example.flomi.data.DiaryItem;
 
 import java.util.ArrayList;
 import java.util.List;

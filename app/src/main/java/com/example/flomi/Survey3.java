@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,12 +26,17 @@ public class Survey3 extends AppCompatActivity {
 
         ImageButton next = findViewById(R.id.survey3_btn_next1);
         next.setOnClickListener(view -> {
+            if (selectedConcerns.isEmpty()) {
+                Toast.makeText(Survey3.this, "피부 고민을 하나 이상 선택해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Intent intent = new Intent(Survey3.this, Survey4.class);
             intent.putExtra("gender", getIntent().getStringExtra("gender"));
             intent.putExtra("birthYear", getIntent().getIntExtra("birthYear", 0));
             intent.putExtra("skinType", getIntent().getStringExtra("skinType"));
             intent.putExtra("personalColor", getIntent().getStringExtra("personalColor"));
-            intent.putExtra("skinConcern", TextUtils.join(",", selectedConcerns)); // 다중 선택된 값들을 문자열로 변환하여 전달
+            intent.putExtra("skinConcern", TextUtils.join(",", selectedConcerns));
             startActivity(intent);
         });
 

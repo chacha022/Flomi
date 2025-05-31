@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,6 +36,16 @@ public class Survey2 extends AppCompatActivity {
 
         ImageButton next = findViewById(R.id.survey2_btn_next1);
         next.setOnClickListener(view -> {
+            if (selectedSkinType.isEmpty()) {
+                Toast.makeText(Survey2.this, "피부 타입을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (selectedColor.isEmpty()) {
+                Toast.makeText(Survey2.this, "퍼스널 컬러를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Intent intent = new Intent(Survey2.this, Survey3.class);
             intent.putExtra("gender", received.getStringExtra("gender"));
             intent.putExtra("birthYear", received.getIntExtra("birthYear", 0));
