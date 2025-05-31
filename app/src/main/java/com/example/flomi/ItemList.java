@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flomi.data.AppDatabase;
+import com.example.flomi.data.CategoryEntity;
 import com.example.flomi.data.Product;
 
 import java.util.List;
@@ -38,19 +39,35 @@ public class ItemList extends AppCompatActivity {
         // Room DB에서 데이터 불러오기 (백그라운드 스레드)
         new Thread(() -> {
             AppDatabase db = AppDatabase.getInstance(this);
-            List<Product> productList = db.productDao().getAllProducts();
+
+            // 가장 최신 CategoryEntity 가져오기 (예: id 내림차순으로 가장 최근 항목 1개)
+            CategoryEntity latestCategory = db.categoryDao().getLatestCategory();
+
+            String concerns = "";
+            if (latestCategory != null) {
+                concerns = latestCategory.getConditions();  // 쉼표로 구분된 문자열
+            }
+
+            List<Product> productList;
+            if (!concerns.isEmpty()) {
+                String[] conditionArray = concerns.split(",");
+
+                // 우선 첫 번째 조건만 사용 (필요하면 여러 조건 처리 가능)
+                String condition = conditionArray[0];
+
+                productList = db.productDao().getProductsSortedBySkinTypes(condition);
+            } else {
+                productList = db.productDao().getAllProducts();
+            }
 
             runOnUiThread(() -> {
                 CustomAdapter adapter = new CustomAdapter(productList);
 
-                // 클릭 시 제품 id만 넘기도록 변경
                 adapter.setOnItemClickListener(productId -> {
-                    // 클릭 시 Detail 화면으로 id만 전달
-                    Intent intent = new Intent(ItemList.this, Detail.class);
-                    intent.putExtra("id", productId);
-                    startActivity(intent);
+                    Intent detailIntent = new Intent(ItemList.this, Detail.class);
+                    detailIntent.putExtra("id", productId);
+                    startActivity(detailIntent);
                 });
-
                 recyclerView.setAdapter(adapter);
             });
         }).start();

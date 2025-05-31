@@ -11,17 +11,18 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.flomi.R;
 
-@Database(entities = {SurveyResponse.class, Product.class, DiaryEntity.class}, version = 8)
-@TypeConverters({DateConverter.class})  // ✅ 여기 추가!
+@Database(entities = {SurveyResponse.class, Product.class, DiaryEntity.class, CategoryEntity.class}, version = 12)
+@TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
-    public static final int VERSION = 8;
+    public static final int VERSION = 12;
 
     private static volatile AppDatabase instance;
 
     public abstract SurveyDao surveyDao();
     public abstract ProductDao productDao();
     public abstract DiaryDao diaryDao();
+    public abstract CategoryDao categoryDao();
 
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
