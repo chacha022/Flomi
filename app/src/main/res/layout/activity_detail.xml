@@ -162,7 +162,8 @@
                                 android:ellipsize="end"
                                 android:text="여기에 아주 긴 텍스트가 들어갑니다..."
                                 android:textSize="16sp"
-                                android:gravity="center_horizontal"/>
+                                android:gravity="center_horizontal"
+                                android:padding="10dp"/>
 
                             <TextView
                                 android:id="@+id/textView"
@@ -297,11 +298,6 @@
                             android:layout_alignParentBottom="true"
                             android:background="#e9ecef" />
 
-                        <TextView
-                            android:id="@+id/content"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="설명" />
 
                         <ImageView
                             android:id="@+id/image_content"
