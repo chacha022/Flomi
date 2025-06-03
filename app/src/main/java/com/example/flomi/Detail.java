@@ -68,11 +68,11 @@ public class Detail extends AppCompatActivity {
                                     tvCompany.setText(product.getCompany() + " >");
                                     tvCompany2.setText(product.getCompany());
                                     tvProduct.setText(product.getName());
-                                    tvContent.setText(product.getContent());
                                     tvCompany_Count.setText(product.getCompany_productCount());
                                     String combinedText =
                                             "고민: " + product.getConcerns() + "\n"
-                                                    + "효능: " + product.getEfficacy();
+                                                    + "효능: " + product.getEfficacy()+ "\n"+ "\n"
+                                            +"설명: "+product.getContent();
                                     tvExplain.setText(combinedText);
                                     likeToggleButton.setChecked(product.isLiked());
 
