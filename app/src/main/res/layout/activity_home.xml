@@ -19,35 +19,7 @@
         android:clipToOutline="true">
 
 
-    <RelativeLayout
-        android:id="@+id/some_id2"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:clipToOutline="true"
-        android:layout_centerHorizontal="true">
 
-        <EditText
-            android:id="@+id/editTextText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginHorizontal="50dp"
-            android:background="@drawable/border"
-            android:hint="상품 검색"
-            android:padding="5dp"
-            android:inputType="text" />
-
-        <ImageButton
-            android:id="@+id/searchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/search"
-            android:layout_margin="15dp"
-            android:layout_alignParentEnd="true"
-            />
-    </RelativeLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -244,6 +216,35 @@
         </RelativeLayout>
             </LinearLayout>
         </ScrollView>
+        <RelativeLayout
+            android:id="@+id/some_id2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:clipToOutline="true"
+            android:layout_centerHorizontal="true">
+
+            <EditText
+                android:id="@+id/editTextText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginHorizontal="50dp"
+                android:background="@drawable/border"
+                android:hint="상품 검색"
+                android:padding="5dp"
+                android:inputType="text" />
+
+            <ImageButton
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/search"
+                android:layout_margin="15dp"
+                android:layout_alignParentEnd="true"
+                />
+        </RelativeLayout>
 
 
         <View

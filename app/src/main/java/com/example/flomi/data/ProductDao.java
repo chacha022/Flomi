@@ -36,8 +36,7 @@ public interface ProductDao {
     @Query("SELECT * FROM product ORDER BY createdAt DESC LIMIT 1")
     Product getLatestProduct();
 
-    @Query("SELECT * FROM product WHERE name LIKE '%' || :keyword || '%' OR company LIKE '%' || :keyword || '%'")
-    List<Product> searchByNameOrCompany(String keyword);
+
 
     @Query("SELECT * FROM product WHERE isLiked = 1")
     List<Product> getLikedProducts();
@@ -47,5 +46,8 @@ public interface ProductDao {
             "WHEN skinTypes LIKE '%' || :skinType || '%' THEN 1 " +
             "ELSE 2 END")
     List<Product> getProductsSortedBySkinTypes(String skinType);
+
+    @Query("SELECT * FROM product WHERE name LIKE '%' || :keyword || '%' OR company LIKE '%' || :keyword || '%'")
+    List<Product> searchByNameOrCompany(String keyword);
 }
 

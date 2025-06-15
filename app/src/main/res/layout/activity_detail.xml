@@ -225,7 +225,7 @@
                                     />
 
                                 <View
-                                    android:layout_width="25dp"
+                                    android:layout_width="35dp"
                                     android:layout_height="15dp"
                                     android:background="@drawable/redline"
                                     android:layout_marginTop="25dp"
@@ -241,10 +241,10 @@
                                 android:layout_marginLeft="20dp"/>
 
                             <View
-                                android:layout_width="100dp"
+                                android:layout_width="70dp"
                                 android:layout_height="10dp"
-                                android:background="@drawable/ingredient2"
-                                android:layout_marginTop="95dp"
+                                android:background="@drawable/warning"
+                                android:layout_marginTop="65dp"
                                 android:layout_marginLeft="20dp"/>
 
                             <View
@@ -255,40 +255,42 @@
                                 android:layout_marginLeft="20dp"/>
 
                             <View
+                                android:layout_width="100dp"
+                                android:layout_height="10dp"
+                                android:background="@drawable/ingredient2"
+                                android:layout_marginTop="95dp"
+                                android:layout_marginLeft="20dp"/>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginRight="20dp">
+                            <View
                                 android:layout_width="20dp"
                                 android:layout_height="10dp"
                                 android:background="@drawable/sixtyfour"
-                                android:layout_marginTop="50dp"
-                                android:layout_marginLeft="200dp"/>
+                                android:layout_marginTop="50dp" />
 
                             <View
                                 android:layout_width="15dp"
                                 android:layout_height="10dp"
                                 android:background="@drawable/three"
-                                android:layout_marginTop="65dp"
-                                android:layout_marginLeft="200dp"/>
+                                android:layout_marginTop="65dp" />
 
                             <View
                                 android:layout_width="15dp"
                                 android:layout_height="10dp"
                                 android:background="@drawable/zero"
-                                android:layout_marginTop="80dp"
-                                android:layout_marginLeft="200dp"/>
+                                android:layout_marginTop="80dp" />
 
-                            <View
-                                android:layout_width="70dp"
-                                android:layout_height="10dp"
-                                android:background="@drawable/warning"
-                                android:layout_marginTop="65dp"
-                                android:layout_marginLeft="20dp"/>
 
                             <View
                                 android:layout_width="15dp"
                                 android:layout_height="10dp"
                                 android:background="@drawable/zero2"
-                                android:layout_marginTop="95dp"
-                                android:layout_marginLeft="200dp"/>
-
+                                android:layout_marginTop="95dp" />
+                            </RelativeLayout>
                         </RelativeLayout>
 
                         <View
