@@ -90,13 +90,15 @@ public class Home extends AppCompatActivity {
             }
         }.execute();
 
+
+        // 2) 최근 구경한 상품 보여줌
         new AsyncTask<Void, Void, Product>() {
             @Override
             protected Product doInBackground(Void... voids) {
                 // createdAt 가장 큰 최신 상품 가져오기
                 return db.productDao().getLatestProduct();
             }
-            // 2) 최근 구경한 상품 보여줌
+
             @Override
             protected void onPostExecute(Product product) {
                 if (product != null) {
